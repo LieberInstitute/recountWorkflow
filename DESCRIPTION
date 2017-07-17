@@ -48,5 +48,5 @@ Imports:
     knitr
 NeedsCompilation: no
 Workflow: true
-URL: https://github.com/LieberInstitute/recountWorkflowBioc
+URL: https://github.com/LieberInstitute/recountWorkflow
 BugReports: https://support.bioconductor.org/t/recountWorkflow/
