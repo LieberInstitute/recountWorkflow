@@ -1,0 +1,52 @@
+Package: recountWorkflow
+Title: recount workflow: accessing over 70,000 human RNA-seq samples with
+    Bioconductor
+Version: 0.99.0
+Authors@R: c(person("Leonardo", "Collado-Torres", role = c("aut", "cre"),
+    email = "lcollado@jhu.edu"), person("Abhinav", "Nellore", role = "ctb",
+    email = "anellore@gmail.com"), person(c("Andrew", "E."), "Jaffe",
+    role = "ctb", email = "andrew.jaffe@libd.org"))
+Description: The recount2 resource is composed of over 70,000 uniformly
+    processed human RNA-seq samples spanning TCGA and SRA, including GTEx. The
+    processed data can be accessed via the recount2 website and the recount 
+    Bioconductor package. This workflow explains in detail how to use the 
+    recount package and how to integrate it with other Bioconductor packages for
+    several analyses that can be carried out with the recount2 resource. In
+    particular, we describe how the coverage count matrices were computed in
+    recount2 as well as different ways of obtaining public metadata, which can
+    facilitate downstream analyses. Step-by-step directions show how to do a
+    gene level differential expression analysis, visualize base-level genome
+    coverage data, and perform an analyses at multiple feature levels. This
+    workflow thus provides further information to understand the data in
+    recount2 and a compendium of R code to use the data.
+Depends: R (>= 3.4.0)
+License: Artistic-2.0
+Encoding: UTF-8
+LazyData: true
+biocViews: WorkflowStep, Coverage, DifferentialExpression, GeneExpression,
+    RNASeq, Sequencing, Software, DataImport
+VignetteBuilder: knitr
+Imports:
+    recount,
+    GenomicRanges,
+    limma,
+    edgeR,
+    DESeq2,
+    regionReport (>= 1.10.2),
+    clusterProfiler,
+    org.Hs.eg.db,
+    gplots,
+    derfinder,
+    rtracklayer,
+    GenomicFeatures,
+    bumphunter,
+    derfinderPlot,
+    devtools,
+    rmarkdown,
+    knitcitations,
+    BiocStyle,
+    knitr
+NeedsCompilation: no
+Workflow: true
+URL: https://github.com/LieberInstitute/recountWorkflowBioc
+BugReports: https://support.bioconductor.org/t/recountWorkflow/

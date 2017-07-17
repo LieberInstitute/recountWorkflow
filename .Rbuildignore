@@ -1,0 +1,15 @@
+^vignettes/figure$
+^vignettes/SRP045638/*\.Rdata$
+^.git$
+^.*\.toc$
+^.*\.aux$
+^.*\.log$
+^.*\.out$
+^.*\.tex$
+^.*\.gz$
+^.*\.blg$
+^.*\.bbl$
+^.*\.sty$
+^.*\.png$
+^.*\.R$
+README.md
