@@ -24,7 +24,7 @@ License: Artistic-2.0
 Encoding: UTF-8
 LazyData: true
 biocViews: WorkflowStep, Coverage, DifferentialExpression, GeneExpression,
-    RNASeq, Sequencing, Software, DataImport
+    RNASeq, Sequencing, DataImport
 VignetteBuilder: knitr
 Imports:
     recount,
