@@ -521,8 +521,9 @@ library("org.Hs.eg.db")
 head(rownames(limma_res))
 
 ## Perform enrichment analysis for Biological Process (BP)
+## Note that the argument is keytype instead of keyType in Bioconductor 3.5
 enrich_go <- enrichGO(gene = rownames(limma_res)[limma_res$padj < 0.001],
-    OrgDb = org.Hs.eg.db, keytype = "ENSEMBL", ont = "BP",
+    OrgDb = org.Hs.eg.db, keyType = "ENSEMBL", ont = "BP",
     pAdjustMethod = "BH", pvalueCutoff = 0.01, qvalueCutoff = 0.05,
     universe = rownames(limma_res))
 
