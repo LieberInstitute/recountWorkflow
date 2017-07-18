@@ -329,16 +329,16 @@ colData(rse_gene)[, 22:ncol(colData(rse_gene))]
 
 Ultimately, more sample metadata information could be available elsewhere which can be useful for analyses. This information might be provided in the paper describing the data, the SRA Run Selector or other sources. As shown in Figure \@ref(fig:Figure2), it is possible to append information to the `colData()` slot as long as there is a unique sample identifier such as the SRA Run id.
 
-For our example use case, project SRP045638 has a few extra biologically relevant variables via the SRA Run selector https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=SRP045638. We can download that information into text file named `SRARunTable.txt` by default, then load it into R, sort it appropriately and then append it to the `colData()` slot. Below we do so for the SRP045638 project.
+For our example use case, project SRP045638 has a few extra biologically relevant variables via the SRA Run selector https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=SRP045638. We can download that information into text file named `SraRunTable.txt` by default, then load it into R, sort it appropriately and then append it to the `colData()` slot. Below we do so for the SRP045638 project.
 
 ```{r "sra_run_table"}
 ## Save the information from 
 ## https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=SRP045638
-## to a table. We saved the file as SRP045638/SRARunTable.txt.
-file.exists(file.path("SRP045638", "SRARunTable.txt"))
+## to a table. We saved the file as SRP045638/SraRunTable.txt.
+file.exists(file.path("SRP045638", "SraRunTable.txt"))
 
 ## Read the table
-sra <- read.table(file.path("SRP045638", "SRARunTable.txt"),
+sra <- read.table(file.path("SRP045638", "SraRunTable.txt"),
     header = TRUE, sep = "\t")
 
 ## Explore it
