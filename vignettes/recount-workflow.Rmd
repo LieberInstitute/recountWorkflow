@@ -2,18 +2,22 @@
 title: "recount workflow: accessing over 70,000 human RNA-seq samples with Bioconductor"
 author: 
   - name: Leonardo Collado-Torres
-    affiliation: &libd Lieber Institute for Brain Development, Johns Hopkins Medical Campus
+    affiliation:
+    - &libd Lieber Institute for Brain Development, Johns Hopkins Medical Campus
+    - &ccb Center for Computational Biology, Johns Hopkins University
     email: leo.collado@libd.org
   - name: Abhinav Nellore
     affiliation:
     - Department of Biomedical Engineering, Oregon Health and Science University
     - Department of Surgery, Oregon Health and Science University
+    - Computational Biology Program, Oregon Health and Science University
   - name: Andrew E. Jaffe
     affiliation: 
     - *libd
+    - *ccb
     - Department of Biostatistics, Johns Hopkins Bloomberg School of Public Health
     - Department of Mental Health, Johns Hopkins University
-date: July 17, 2017
+date: July 20, 2017
 vignette: >
   %\VignetteIndexEntry{recount workflow: accessing over 70,000 human RNA-seq samples with Bioconductor}
   %\VignetteEngine{knitr::rmarkdown}
