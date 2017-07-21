@@ -856,8 +856,7 @@ This workflow was created using `BiocWorkflowTools` [@biocWorkflow].
 dir("SRP045638")
 
 ## Pandoc information
-library("rmarkdown")
-pandoc_version()
+rmarkdown::pandoc_version()
 
 ## Time for reproducing this workflow, in minutes
 round(proc.time()[3] / 60, 1)
