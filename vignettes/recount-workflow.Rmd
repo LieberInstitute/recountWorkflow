@@ -672,13 +672,13 @@ regions <- regions[width(regions) >= 100]
 length(regions)
 ```
 
-Now that we have a set of regions to work with, we proceed to build a _RangedSummarizedExperiment_ object with the coverage counts, add the expanded metadata we built for the gene level, and scale the counts.
+Now that we have a set of regions to work with, we proceed to build a _RangedSummarizedExperiment_ object with the coverage counts, add the expanded metadata we built for the gene level, and scale the counts. Note that `coverage_matrix()` scales the base-pair coverage counts by default, which we turn off in order to use use `scale_counts()`.
 
 ```{r "build_rse_ER", eval = .Platform$OS.type != "windows"}
 ## Compute coverage matrix for study SRP045638, only for chromosome 21
 ## Takes about 4 minutes
 rse_er <- coverage_matrix("SRP045638", "chr21", regions, chunksize = 2000,
-    verboseLoad = FALSE)
+    verboseLoad = FALSE, scale = FALSE)
 
 ## Use the expanded metadata we built for the gene model
 colData(rse_er) <- colData(rse_gene_scaled)
