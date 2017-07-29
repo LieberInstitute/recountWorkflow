@@ -18,7 +18,7 @@ author:
     - Department of Biostatistics, Johns Hopkins Bloomberg School of Public Health
     - Department of Mental Health, Johns Hopkins Bloomberg School of Public Health
     
-date: July 25, 2017
+date: July 29, 2017
 vignette: >
   %\VignetteIndexEntry{recount workflow: accessing over 70,000 human RNA-seq samples with Bioconductor}
   %\VignetteEngine{knitr::rmarkdown}
