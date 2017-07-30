@@ -464,12 +464,12 @@ fit <- eBayes(fit)
 
 Having run the DE analysis, we can explore some of the top results either with an MA plot (Figure \@ref(fig:limmaplots1)) and a volcano plot Figure (\@ref(fig:limmaplots2)). Both reveal very strong and widespread DE signal.
 
-```{r "limmaplots1", out.width="100%", fig.align="center", fig.cap = "MA plot of the gene level data. Testing for prenatal and postnal DE adjusting for sex and RIN."}
+```{r "limmaplots1", out.width="100%", fig.align="center", fig.cap = "MA plot of the gene level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
 ## Visually explore DE results
 limma::plotMA(fit, coef = 4)
 ```
 
-```{r "limmaplots2", out.width="100%", fig.align="center", fig.cap = "Volcano plot of the gene level data. Testing for prenatal and postnal DE adjusting for sex and RIN."}
+```{r "limmaplots2", out.width="100%", fig.align="center", fig.cap = "Volcano plot of the gene level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
 limma::volcanoplot(fit, coef = 4)
 ```
 
@@ -591,7 +591,7 @@ dge_exon <- calcNormFactors(dge_exon)
 v_exon <- voom(dge_exon, design, plot = TRUE)
 ```
 
-```{r "exondeanalysis2", out.width="100%", fig.align="center", fig.cap = "Volcano plot of the exon level data. Testing for prenatal and postnal DE adjusting for sex and RIN."}
+```{r "exondeanalysis2", out.width="100%", fig.align="center", fig.cap = "Volcano plot of the exon level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
 ## Run remaining parts of the DE analysis
 fit_exon <- lmFit(v_exon, design)
 fit_exon <- eBayes(fit_exon)
@@ -716,7 +716,7 @@ fit_er <- lmFit(v_er, design)
 fit_er <- eBayes(fit_er)
 ```
 
-```{r "erdeanalysis4", eval = .Platform$OS.type != "windows", out.width="100%", fig.align="center", fig.cap = "Volcano plot of the expressed regions level data. Testing for prenatal and postnal DE adjusting for sex and RIN."}
+```{r "erdeanalysis4", eval = .Platform$OS.type != "windows", out.width="100%", fig.align="center", fig.cap = "Volcano plot of the expressed regions level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
 ## Visually explore the results
 limma::volcanoplot(fit_er, coef = 4)
 
