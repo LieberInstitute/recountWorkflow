@@ -18,7 +18,7 @@ author:
     - Department of Biostatistics, Johns Hopkins Bloomberg School of Public Health
     - Department of Mental Health, Johns Hopkins Bloomberg School of Public Health
     
-date: July 29, 2017
+date: July 30, 2017
 vignette: >
   %\VignetteIndexEntry{recount workflow: accessing over 70,000 human RNA-seq samples with Bioconductor}
   %\VignetteEngine{knitr::rmarkdown}
@@ -440,7 +440,7 @@ dge <- DGEList(counts = counts[filter, ])
 dge <- calcNormFactors(dge)
 
 ## Explore the data
-plotMDS(dge, labels = substr(colData(rse_gene_scaled)$prenatal, 1, 1) )
+plotMDS(dge, labels = substr(colData(rse_gene_scaled)$prenatal, 1, 2) )
 ```
 
 ```{r "limmade2", out.width="100%", fig.align="center", fig.cap = "Multi-dimensional scaling plot of the gene level data by sex."}
@@ -700,7 +700,7 @@ dge_er <- DGEList(counts = assays(rse_er_scaled)$counts)
 dge_er <- calcNormFactors(dge_er)
 
 ## Explore the data
-plotMDS(dge_er, labels = substr(colData(rse_er_scaled)$prenatal, 1, 1) )
+plotMDS(dge_er, labels = substr(colData(rse_er_scaled)$prenatal, 1, 2) )
 ```
 
 ```{r "erdeanalysis2", eval = .Platform$OS.type != "windows", out.width="100%", fig.align="center", fig.cap = "Multi-dimensional scaling plot of the expressed regions level data by sex."}
@@ -862,8 +862,7 @@ plotRegionCoverage(regions = regions_resized, regionCoverage = regionCov,
    ask = FALSE, verbose = FALSE)
 ```
 
-In these plots we can see that some DERs are longer than known exons (Figures \@ref(fig:regionplots1), \@ref(fig:regionplots2)), others match known exons (Figuress \@ref(fig:regionplots4), \@ref(fig:regionplots5), \@ref(fig:regionplots6), \@ref(fig:regionplots7), \@ref(fig:regionplots8)), and some are either un-annotated exons or reflect a coverage dip (Figures \@ref(fig:regionplots3), \@ref(fig:regionplots9), \@ref(fig:regionplots10)).
-
+In these plots we can see that some DERs match known exons (Figures \@ref(fig:regionplots2), \@ref(fig:regionplots8), \@ref(fig:regionplots10)), some are longer than known exons (Figures \@ref(fig:regionplots1), \@ref(fig:regionplots7), \@ref(fig:regionplots9)), and others are exon fragments (Figures \@ref(fig:regionplots3), \@ref(fig:regionplots4), \@ref(fig:regionplots5), \@ref(fig:regionplots6)) which could be due to the cutoff used. Note that Figure \@ref(fig:regionplots7) could be shorter than a known exon due to a coverage dip.
 
 # Summary
 
