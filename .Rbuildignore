@@ -11,6 +11,5 @@
 ^.*\.bbl$
 ^.*\.sty$
 ^.*\.png$
-^.*\.R$
 ^.*\.pdf$
 README.md
