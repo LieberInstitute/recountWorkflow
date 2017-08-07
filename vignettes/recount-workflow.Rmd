@@ -851,8 +851,9 @@ regions_ann <- annotateRegions(regions_resized,
 
 We can finally use `plotRegionCoverage()` to visualize the top 10 regions coloring by whether they are prenatal or postnatal samples. Known exons are shown in dark blue, introns in light blue.
 
-```{r "regionplots", eval = .Platform$OS.type != "windows", out.width="100%", fig.align="center", fig.cap = paste0("Base-pair resolution plot of differentially expressed region ", 1:10, ".")}
+```{r "regionplots", eval = .Platform$OS.type != "windows", out.width="100%", fig.align="center", fig.cap = paste0("Base-pair resolution plot of differentially expressed region ", 1, ".")}
 library("derfinderPlot")
+pdf('region_plots.pdf')
 plotRegionCoverage(regions = regions_resized, regionCoverage = regionCov, 
    groupInfo = colData(rse_er_scaled)$prenatal,
    nearestAnnotation = nearest_ann, 
@@ -860,9 +861,19 @@ plotRegionCoverage(regions = regions_resized, regionCoverage = regionCov,
    txdb = gencode_v25_hg38_txdb,
    scalefac = 1, ylab = "Coverage (RP40M, 100bp)",
    ask = FALSE, verbose = FALSE)
+dev.off()
+
+## Visualize DER #1
+plotRegionCoverage(regions = regions_resized, regionCoverage = regionCov, 
+   groupInfo = colData(rse_er_scaled)$prenatal,
+   nearestAnnotation = nearest_ann, 
+   annotatedRegions = regions_ann,
+   txdb = gencode_v25_hg38_txdb,
+   scalefac = 1, ylab = "Coverage (RP40M, 100bp)",
+   ask = FALSE, verbose = FALSE, whichRegions = 1)
 ```
 
-In these plots we can see that some DERs match known exons (Figures \@ref(fig:regionplots2), \@ref(fig:regionplots8), \@ref(fig:regionplots10)), some are longer than known exons (Figures \@ref(fig:regionplots1), \@ref(fig:regionplots7), \@ref(fig:regionplots9)), and others are exon fragments (Figures \@ref(fig:regionplots3), \@ref(fig:regionplots4), \@ref(fig:regionplots5), \@ref(fig:regionplots6)) which could be due to the cutoff used. Note that Figure \@ref(fig:regionplots7) could be shorter than a known exon due to a coverage dip.
+In these plots we can see that some DERs match known exons (DERs 2, 8, 10), some are longer than known exons (DERs 1, 7, 9), and others are exon fragments (DERs 3, 4, 5, 6) which could be due to the cutoff used. Note that DER 7 could be shorter than a known exon due to a coverage dip.
 
 # Summary
 

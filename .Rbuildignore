@@ -12,4 +12,5 @@
 ^.*\.sty$
 ^.*\.png$
 ^.*\.R$
+^.*\.pdf$
 README.md
