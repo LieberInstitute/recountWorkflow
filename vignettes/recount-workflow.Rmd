@@ -3,22 +3,22 @@ title: "recount workflow: accessing over 70,000 human RNA-seq samples with Bioco
 author: 
   - name: Leonardo Collado-Torres
     affiliation:
-    - &libd Lieber Institute for Brain Development, Johns Hopkins Medical Campus
-    - &ccb Center for Computational Biology, Johns Hopkins University
+    - &libd Lieber Institute for Brain Development, Johns Hopkins Medical Campus, Baltimore, MD, 21205, USA
+    - &ccb Center for Computational Biology, Johns Hopkins University, Baltimore, MD, 21205, USA
     email: leo.collado@libd.org
   - name: Abhinav Nellore
     affiliation:
-    - Department of Biomedical Engineering, Oregon Health and Science University
-    - Department of Surgery, Oregon Health and Science University
-    - Computational Biology Program, Oregon Health and Science University
+    - Department of Biomedical Engineering, Oregon Health and Science University, Portland, OR, 97239, USA
+    - Department of Surgery, Oregon Health and Science University, Portland, OR, 97239, USA
+    - Computational Biology Program, Oregon Health and Science University, Portland, OR, 97239, USA
   - name: Andrew E. Jaffe
     affiliation: 
     - *libd
     - *ccb
-    - Department of Biostatistics, Johns Hopkins Bloomberg School of Public Health
-    - Department of Mental Health, Johns Hopkins Bloomberg School of Public Health
+    - Department of Biostatistics, Johns Hopkins Bloomberg School of Public Health, Baltimore, MD, 21205, USA
+    - Department of Mental Health, Johns Hopkins Bloomberg School of Public Health, Baltimore, MD, 21205, USA
     
-date: July 30, 2017
+date: August 16, 2017
 vignette: >
   %\VignetteIndexEntry{recount workflow: accessing over 70,000 human RNA-seq samples with Bioconductor}
   %\VignetteEngine{knitr::rmarkdown}
@@ -36,9 +36,9 @@ csl: f1000-research.csl
 
 # Introduction
 
-RNA sequencing (RNA-seq) is now the most widely used high-throughput assay for measuring gene expression. In a typical RNA-seq experiment, several million reads are sequenced per sample. The reads are often aligned to the reference genome using a splice-aware aligner to identify where reads originated. Resulting alignment files are then used to compute count matrices which are used for several analyses such as identifying differentially expressed genes. The Bioconductor project [@huber2015] has many contributed packages that specialize in analyzing this type of data and previous workflows have explained how to use them [@Law2016a; @Love2016; @Chen2016]. Initial steps are typically focused on generating the count matrices. Some pre-computed matrices have been made available via the ReCount project [@frazee2011] or Bioconductor Experiment data packages such as the `airway` dataset [@airway]. The pre-computed count matrices in ReCount have been useful to RNA-seq methods developers and to researchers seeking to avoid the computationally intensive process of creating these matrices. In the years since ReCount was published, hundreds of new RNA-seq projects have been carried out, and researchers have shared the data publicly.
+RNA sequencing (RNA-seq) is now the most widely used high-throughput assay for measuring gene expression. In a typical RNA-seq experiment, several million reads are sequenced per sample. The reads are often aligned to the reference genome using a splice-aware aligner to identify where reads originated. Resulting alignment files are then used to compute count matrices for several analyses such as identifying differentially expressed genes. The Bioconductor project [@huber2015] has many contributed packages that specialize in analyzing this type of data and previous workflows have explained how to use them [@Law2016a; @Love2016; @Chen2016]. Initial steps are typically focused on generating the count matrices. Some pre-computed matrices have been made available via the ReCount project [@frazee2011] or Bioconductor Experiment data packages such as the `airway` dataset [@airway]. The pre-computed count matrices in ReCount have been useful to RNA-seq methods developers and to researchers seeking to avoid the computationally intensive process of creating these matrices. In the years since ReCount was published, hundreds of new RNA-seq projects have been carried out, and researchers have shared the data publicly.
 
-We recently uniformly processed over 70,000 publicly available human RNA-seq samples, and made the data available via the recount2 resource at [jhubiostatistics.shinyapps.io/recount/](https://jhubiostatistics.shinyapps.io/recount/) [@collado-torres_reproducible_2017]. Samples in recount2 are grouped by project (over 2,000) originating from the Sequence Read Archive, the Genotype-Tissue Expression study (GTEx) and the Cancer Genome Atlas (TCGA). The processed data can be accessed via the `recount` Bioconductor package available at [bioconductor.org/packages/recount](http://bioconductor.org/packages/recount). Together, recount2 and the `recount` Bioconductor package should be considered a successor to ReCount.
+We recently uniformly processed over 70,000 publicly available human RNA-seq samples, and made the data available via the recount2 resource [@collado-torres_reproducible_2017] at [jhubiostatistics.shinyapps.io/recount/](https://jhubiostatistics.shinyapps.io/recount/). Samples in recount2 are grouped by project (over 2,000) originating from the Sequence Read Archive, the Genotype-Tissue Expression study (GTEx) and the Cancer Genome Atlas (TCGA). The processed data can be accessed via the `recount` Bioconductor package available at [bioconductor.org/packages/recount](http://bioconductor.org/packages/recount). Together, recount2 and the `recount` Bioconductor package should be considered a successor to ReCount.
 
 Due to space constraints, the recount2 publication [@collado-torres_reproducible_2017] did not cover how to use the `recount` package and other useful information for carrying out analyses with recount2 data.  We describe how the count matrices in recount2 were generated. We also review the R code necessary for using the recount2 data, whose details are important because some of this code involves multiple Bioconductor packages and changing default options. We further show: (a) how to augment metadata that comes with datasets with metadata learned from natural language processing of associated papers as well as expression data (b) how to perform differential expression analyses, and (c) how to visualize the base-pair data available from recount2.
 
@@ -46,13 +46,13 @@ Due to space constraints, the recount2 publication [@collado-torres_reproducible
 
 ## recount2 overview
 
-The recount2 resource provides expression data summarized at different feature levels to enable novel cross-study analyses. Generally when investigators use the term _expression_, they think about gene expression. But more information can be extracted from RNA-seq data. Once RNA-seq reads have been aligned to the reference genome it is possible to determine the number of aligned reads overlapping each base-pair resulting in the genome base-pair coverage curve as shown in Figure \@ref(fig:Figure1). In the example shown in Figure \@ref(fig:Figure1), most of the reads overlap known exons from a gene. Those reads can be used to compute a count matrix at the exon or gene feature levels. Some reads span exon-exon junctions (jx) and while most match the annotation, some do not (jx 3 and 4). An exon-exon junction count matrix can be used to identify differentially expressed junctions, which can show which isoforms are differentially expressed given sufficient coverage. For example, junctions 2 and 5 are unique to isoform 2, while junction 6 is unique to isoform 1. The genome base-pair coverage data can be used with `derfinder` [@collado-torres_flexible_2017] to identify expressed regions, some of them could be un-annotated exons and together with the exon-exon junction data uncover potential new isoforms.
+The recount2 resource provides expression data summarized at different feature levels to enable novel cross-study analyses. Generally when investigators use the term _expression_, they think about gene expression. But more information can be extracted from RNA-seq data. Once RNA-seq reads have been aligned to the reference genome it is possible to determine the number of aligned reads overlapping each base-pair resulting in the genome base-pair coverage curve as shown in Figure \@ref(fig:Figure1). In the example shown in Figure \@ref(fig:Figure1), most of the reads overlap known exons from a gene. Those reads can be used to compute a count matrix at the exon or gene feature levels. Some reads span exon-exon junctions (jx) and while most match the annotation, some do not (jx 3 and 4). An exon-exon junction count matrix can be used to identify differentially expressed junctions, which can show which isoforms are differentially expressed given sufficient coverage. For example, junctions 2 and 5 are unique to isoform 2, while junction 6 is unique to isoform 1. The genome base-pair coverage data can be used with `derfinder` [@collado-torres_flexible_2017] to identify expressed regions; some of these could be un-annotated exons, which together with the exon-exon junction data could help establish new isoforms.
 
-```{r Figure1, out.width="100%", fig.align="center", fig.cap = "Overview of the data available in recount2. Reads (pink boxes) aligned to the reference genome can be used to compute a base-pair coverage curve and identify exon-exon junctions (split reads). Gene and exon count matrices are generated using annotation information providing the gene (green boxes) and exon (blue boxes) coordinates together with the base-level coverage curve. The reads spanning exon-exon junctions (jx) are used to compute a third count matrix that might include un-annotated junctions (jx 3 and 4). Without using annotation information, expressed regions (orange box) can be determined from the base-level coverage curve to then construct data-driven count matrices.", echo = FALSE}
+```{r Figure1, out.width="100%", fig.align="center", fig.cap = "Overview of the data available in recount2. Reads (pink boxes) aligned to the reference genome can be used to compute a base-pair coverage curve and identify exon-exon junctions (split reads). Gene and exon count matrices are generated using annotation information providing the gene (green boxes) and exon (blue boxes) coordinates together with the base-level coverage curve. The reads spanning exon-exon junctions (jx) are used to compute a third count matrix that might include unannotated junctions (jx 3 and 4). Without using annotation information, expressed regions (orange box) can be determined from the base-level coverage curve to then construct data-driven count matrices.", echo = FALSE}
 knitr::include_graphics("Figure1.png")
 ```
 
-recount2 provides gene, exon, and exon-exon junction count matrices both in text format and _RangedSummarizedExperiment_ objects (rse) [@summarizedexperiment] as shown in Figure \@ref(fig:Figure2). These rse objects provide information about the expression features (for example gene IDs) and the samples. In this workflow we will explain how to add metadata to the rse objects in recount2 in order to ask biological questions. recount2 also provides coverage data in the form of BigWig files. All four features can be accessed with the `recount` Bioconductor package [@collado-torres_reproducible_2017]. `recount` also allows sending queries to `snaptron` [@Wilks2017] to search for specific exon-exon junctions.
+recount2 provides gene, exon, and exon-exon junction count matrices both in text format and _RangedSummarizedExperiment_ objects (rse) [@summarizedexperiment] as shown in Figure \@ref(fig:Figure2). These rse objects provide information about the expression features (for example gene IDs) and the samples. In this workflow we will explain how to add metadata to the rse objects in recount2 in order to ask biological questions. recount2 also provides coverage data in the form of bigWig files. All four features can be accessed with the `recount` Bioconductor package [@collado-torres_reproducible_2017]. `recount` also allows sending queries to `snaptron` [@Wilks2017] to search for specific exon-exon junctions.
 
 ```{r Figure2, out.width="100%", fig.align="center", fig.cap = "recount2 provides coverage count matrices in RangedSummarizedExperiment (rse) objects. Once the rse object has been downloaded and loaded into R, the feature information is accessed with rowRanges(rse) (blue box), the counts with assays(rse)\\$counts (pink box) and the sample metadata with colData(rse) (green box). The sample metadata can be expanded using add\\_predictions(rse) (orange box) or with custom code (brown box) matching by a unique sample identifier such as the SRA Run ID. The rse object is inside the purple box and matching data is highlighted in each box.", echo = FALSE}
 knitr::include_graphics("Figure2.png")
@@ -71,7 +71,7 @@ biocLite(c("recount", "GenomicRanges", "limma", "edgeR", "DESeq2",
     "devtools"))
 ```
 
-Once installed, load all of the packages with the following code.
+Once they are installed, load all the packages with the following code.
 
 ```{r "load libraries", message = FALSE, warning = FALSE}
 library("recount")
@@ -111,7 +111,7 @@ In order to compute the gene and exon count matrices we first have to process th
 knitr::include_graphics("Figure5.png")
 ```
 
-The coverage curve is at the base-pair resolution, so if we are interested in gene counts we have to be careful not to double count base-pairs 1 through 5 that are shared by exons 1 and 3 (Figure \@ref(fig:Figure5)). Using the function `disjoin()` from `GenomicRanges` [@lawrence2013] we identified the distinct exonic sequences (disjoint exons). The following code defines the exon coordinates that match Figure \@ref(fig:Figure5) and the resulting disjoint exons for our example gene. The resulting disjoint exons are shown in Figure \@ref(fig:Figure6).
+The coverage curve is at base-pair resolution, so if we are interested in gene counts we have to be careful not to double count base-pairs 1 through 5 that are shared by exons 1 and 3 (Figure \@ref(fig:Figure5)). Using the function `disjoin()` from `GenomicRanges` [@lawrence2013] we identified the distinct exonic sequences (disjoint exons). The following code defines the exon coordinates that match Figure \@ref(fig:Figure5) and the resulting disjoint exons for our example gene. The resulting disjoint exons are shown in Figure \@ref(fig:Figure6).
 
 ```{r "disjoin", message = FALSE}
 library("GenomicRanges")
@@ -205,9 +205,9 @@ summary(colSums(assays(rse_scaled)$counts)) / 1e6
 
 ### Enriching the annotation
 
-Data in recount2 can be used for annotation-agnostic analyses and enriching the known annotation. Just like exon and gene coverage count matrices, recount2 provides exon-exon junction count matrices. These matrices can be used to identify new isoforms (Figure \@ref(fig:Figure10)) or identify differentially expressed isoforms. For example, exon-exon junctions 2, 5 and 6 in Figure \@ref(fig:Figure1) are only present in one annotated isoform. `Snaptron` [@Wilks2017] allows programatic and high-level queries of the exon-exon junction information and it is graphical user interface is specially useful for visualizing this data. Inside R, the `recount` function `snaptron_query()` can be used for searching specific exon-exon junctions in recount2.
+Data in recount2 can be used for annotation-agnostic analyses and enriching the known annotation. Just like exon and gene coverage count matrices, recount2 provides exon-exon junction count matrices. These matrices can be used to identify new isoforms (Figure \@ref(fig:Figure10)) or identify differentially expressed isoforms. For example, exon-exon junctions 2, 5 and 6 in Figure \@ref(fig:Figure1) are only present in one annotated isoform. `Snaptron` [@Wilks2017] allows programatic and high-level queries of the exon-exon junction information and its graphical user interface is specially useful for visualizing this data. Inside R, the `recount` function `snaptron_query()` can be used for searching specific exon-exon junctions in recount2.
 
-```{r Figure10, out.width="100%", fig.align="center", fig.cap = "Exon-exon junctions go beyond the annotation. Reads spanning exon-exon junctions are highlighted and compared against the annotation. Three of them match the annotated junctions, but one (blue and orange read) spans an un-annotated exon-exon junction with the left end matching the annotation and the right end hinting at a possible new isoform for this gene (blue and orange isoform).", echo = FALSE}
+```{r Figure10, out.width="100%", fig.align="center", fig.cap = "Exon-exon junctions go beyond the annotation. Reads spanning exon-exon junctions are highlighted and compared against the annotation. Three of them match the annotated junctions, but one (blue and orange read) spans an unannotated exon-exon junction with the left end matching the annotation and the right end hinting at a possible new isoform for this gene (blue and orange isoform).", echo = FALSE}
 knitr::include_graphics("Figure10.png")
 ```
 
@@ -222,7 +222,7 @@ knitr::include_graphics("Figure12.png")
 ```
 
 
-## Gene level analysis
+## Gene-level analysis
 
 Having reviewed how the coverage counts in recount2 were produced, we can now do a DE analysis. We will use data from 72 individuals spanning the human lifespan, split into 6 age groups with SRA accession SRP045638 [@jaffe2015]. The function `download_study()` requires a SRA accession which can be found using `abstract_search()`. `download_study()` can then be used to download the gene coverage count data as well as other expression features. The files are saved in a directory named after the SRA accession, in this case SRP045638.
 
@@ -427,9 +427,9 @@ filter <- rowMeans(counts) > 0.5
 
 ### DE analysis
 
-Now that we have scaled the counts, there are multiple DE packages we could use, as described elsewhere [@Love2016; @Law2016a]. Since we have 12 samples per group, which is a moderate number, we will use `limma-voom` [@law2014voom] due to it is speed. The model we use tests for DE between prenatal and postnatal samples adjusting for sex and RIN, which is a measure of quality of the input sample. We check the data with multi-dimensional scaling plots (Figures \@ref(fig:limmade1) and \@ref(fig:limmade2)) as well as the mean-variance plot (Figure \@ref(fig:limmade3)). In a real use case we might have to explore the results with different models and perform sensitivity analyses.
+Now that we have scaled the counts, there are multiple DE packages we could use, as described elsewhere [@Love2016; @Law2016a]. Since we have 12 samples per group, which is a moderate number, we will use `limma-voom` [@law2014voom] due to its speed. The model we use tests for DE between prenatal and postnatal samples adjusting for sex and RIN, which is a measure of quality of the input sample. We check the data with multi-dimensional scaling plots (Figures \@ref(fig:limmade1) and \@ref(fig:limmade2)) as well as the mean-variance plot (Figure \@ref(fig:limmade3)). In a real use case we might have to explore the results with different models and perform sensitivity analyses.
 
-```{r "limmade1", out.width="100%", fig.align="center", fig.cap = "Multi-dimensional scaling plot of the gene level data by age group."}
+```{r "limmade1", out.width="100%", fig.align="center", fig.cap = "Multi-dimensional scaling plot of the gene-level data by age group."}
 library("limma")
 library("edgeR")
 
@@ -443,7 +443,7 @@ dge <- calcNormFactors(dge)
 plotMDS(dge, labels = substr(colData(rse_gene_scaled)$prenatal, 1, 2) )
 ```
 
-```{r "limmade2", out.width="100%", fig.align="center", fig.cap = "Multi-dimensional scaling plot of the gene level data by sex."}
+```{r "limmade2", out.width="100%", fig.align="center", fig.cap = "Multi-dimensional scaling plot of the gene-level data by sex."}
 plotMDS(dge, labels = substr(colData(rse_gene_scaled)$sex, 1, 1) )
 tapply(colData(rse_gene_scaled)$RIN, colData(rse_gene_scaled)$prenatal, summary)
 
@@ -451,7 +451,7 @@ tapply(colData(rse_gene_scaled)$RIN, colData(rse_gene_scaled)$prenatal, summary)
 design <- with(colData(rse_gene_scaled), model.matrix(~ sex + RIN + prenatal))
 ```
 
-```{r "limmade3", out.width="100%", fig.align="center", fig.cap = "voom mean-variance plot of the gene level data."}
+```{r "limmade3", out.width="100%", fig.align="center", fig.cap = "voom mean-variance plot of the gene-level data."}
 ## Run voom
 v <- voom(dge, design, plot = TRUE)
 
@@ -464,12 +464,12 @@ fit <- eBayes(fit)
 
 Having run the DE analysis, we can explore some of the top results either with an MA plot (Figure \@ref(fig:limmaplots1)) and a volcano plot Figure (\@ref(fig:limmaplots2)). Both reveal very strong and widespread DE signal.
 
-```{r "limmaplots1", out.width="100%", fig.align="center", fig.cap = "MA plot of the gene level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
+```{r "limmaplots1", out.width="100%", fig.align="center", fig.cap = "MA plot of the gene-level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
 ## Visually explore DE results
 limma::plotMA(fit, coef = 4)
 ```
 
-```{r "limmaplots2", out.width="100%", fig.align="center", fig.cap = "Volcano plot of the gene level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
+```{r "limmaplots2", out.width="100%", fig.align="center", fig.cap = "Volcano plot of the gene-level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
 limma::volcanoplot(fit, coef = 4)
 ```
 
@@ -557,11 +557,11 @@ As described in Figure \@ref(fig:Figure1), recount2 provides data for expression
 
 ### Exon and exon-exon junctions
 
-The exon and exon-exon junction coverage count matrices are similar to the gene level one and can also be downloaded with `download_study()`. However, these coverage count matrices are much larger than the gene one. Aggressive filtering of lowly expressed exons or exon-exon junctions can reduce the matrix dimensions if this impacts the performance of the DE software used. 
+The exon and exon-exon junction coverage count matrices are similar to the gene-level one and can also be downloaded with `download_study()`. However, these coverage count matrices are much larger than the gene one. Aggressive filtering of lowly expressed exons or exon-exon junctions can reduce the matrix dimensions if this impacts the performance of the DE software used. 
 
-Below we repeat the gene level analysis for the disjoint exon data. We first download the exon data, add the expanded metadata we constructed for the gene analysis, explore the data (Figure1 \@ref(fig:exondeanalysis1)), and then perform the DE analysis using `limma-voom`.
+Below we repeat the gene-level analysis for the disjoint exon data. We first download the exon data, add the expanded metadata we constructed for the gene analysis, explore the data (Figure1 \@ref(fig:exondeanalysis1)), and then perform the DE analysis using `limma-voom`.
 
-```{r "exondeanalysis1", out.width="100%", fig.align="center", fig.cap = "voom mean-variance plot of the exon level data."}
+```{r "exondeanalysis1", out.width="100%", fig.align="center", fig.cap = "voom mean-variance plot of the exon-level data."}
 ## Download the data if it is not there
 if(!file.exists(file.path("SRP045638", "rse_exon.Rdata"))) {
     download_study("SRP045638", type = "rse-exon")
@@ -591,7 +591,7 @@ dge_exon <- calcNormFactors(dge_exon)
 v_exon <- voom(dge_exon, design, plot = TRUE)
 ```
 
-```{r "exondeanalysis2", out.width="100%", fig.align="center", fig.cap = "Volcano plot of the exon level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
+```{r "exondeanalysis2", out.width="100%", fig.align="center", fig.cap = "Volcano plot of the exon-level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
 ## Run remaining parts of the DE analysis
 fit_exon <- lmFit(v_exon, design)
 fit_exon <- eBayes(fit_exon)
@@ -605,10 +605,10 @@ top_exon <- topTable(fit_exon, number = Inf, sort.by = "none",
 table(top_exon$adj.P.Val < 0.001)
 ```
 
-Just like at the gene level, we see many exons differentially expressed between prenatal and postnatal samples (Figure \@ref(fig:exondeanalysis2)). As a first step to integrate the results from the two features, we can compare the list of genes that are differentially expressed versus the genes that have at least one exon differentially expressed.
+Just like at the gene-level, we see many exons differentially expressed between prenatal and postnatal samples (Figure \@ref(fig:exondeanalysis2)). As a first step to integrate the results from the two features, we can compare the list of genes that are differentially expressed versus the genes that have at least one exon differentially expressed.
 
 ```{r "geneexon", out.width="100%", fig.align="center", fig.cap = "Venn diagram of the overlap between DE genes and genes with at least one exon DE."}
-## Get the gene IDs for genes that are DE at the gene level or that have at
+## Get the gene IDs for genes that are DE at the gene-level or that have at
 ## least one exon with DE signal.
 genes_w_de_exon <- unique(rownames(rse_exon_scaled)[top_exon$adj.P.Val < 0.001])
 genes_de <- rownames(rse_gene_scaled)[which(filter)[top$adj.P.Val < 0.001]]
@@ -621,9 +621,9 @@ plot(vinfo) +
     title("Genes/exons with DE signal")
 ```
 
-Not all differentially expressed genes have differentially expressed exons, nor genes with at least one differentially expressed exon are necessarily differentially expressed, as shown in Figure \@ref(fig:geneexon). This is in line with what was described in Figure 2B of Soneson et al., 2015 [@Soneson2015].
+Not all differentially expressed genes have differentially expressed exons. Moreover, genes with at least one differentially expressed exon are not necessarily differentially expressed, as shown in Figure \@ref(fig:geneexon). This is in line with what was described in Figure 2B of Soneson et al., 2015 [@Soneson2015].
 
-This was just a quick example of how we can perform DE analyses at the gene and exon feature levels. We envision that more involved pipelines could be developed that leverage both feature levels, such as in Jaffe et al., 2017 [@jaffe2017]. For instance, we could focus on the differentially expressed genes with at least one differentially expressed exon, and compare the direction of the DE signal versus the gene level signal as shown in figure \@ref(fig:geneexonmatch).
+This was just a quick example of how we can perform DE analyses at the gene and exon feature levels. We envision that more involved pipelines could be developed that leverage both feature levels, such as in Jaffe et al., 2017 [@jaffe2017]. For instance, we could focus on the differentially expressed genes with at least one differentially expressed exon, and compare the direction of the DE signal versus the gene-level signal as shown in figure \@ref(fig:geneexonmatch).
 
 ```{r "geneexonmatch", out.width="100%", fig.align="center", fig.cap = "Log fold change (FC) for DE genes compared against the most extreme exon log FC among exons that are DE for the given gene."}
 ## Keep only the DE exons that are from a gene that is also DE
@@ -647,13 +647,13 @@ abline(h = 0, col = "grey80")
 abline(v = 0, col = "grey80")
 ```
 
-The fold change for most exons shown in Figure \@ref(fig:geneexonmatch) agrees with the gene level fold change. However, some of them have opposite directions and could be interesting to study further.
+The fold change for most exons shown in Figure \@ref(fig:geneexonmatch) agrees with the gene-level fold change. However, some of them have opposite directions and could be interesting to study further.
 
 
 ### Base-pair resolution
 
 
-recount2 provides BigWig coverage files (unscaled) for all samples, as well as a mean BigWig coverage file per project where each sample was scaled to 40 million 100 base-pair reads. The mean BigWig files are exactly what is needed to start an _expressed regions_ analysis with `derfinder` [@collado-torres_flexible_2017]. `recount` provides two related functions: `expressed_regions()` which is used to define a set of regions based on the mean BigWig file for a given project, and `coverage_matrix()` which based on a set of regions builds a count coverage matrix in a _RangedSummarizedExperiment_ object just like the ones that are provided for genes and exons. Both functions ultimately use `import.bw()` from `rtracklayer` [@rtracklayer] which currently is not supported on Windows machines. While this presents a portability disadvantage, on the other side it allows reading portions of BigWig files from the web without having to fully download them. `download_study()` with `type = "mean"`  or `type = "samples"` can be used to download the BigWig files, which we recommend doing when working with them extensively.
+recount2 provides bigWig coverage files (unscaled) for all samples, as well as a mean bigWig coverage file per project where each sample was scaled to 40 million 100 base-pair reads. The mean bigWig files are exactly what is needed to start an _expressed regions_ analysis with `derfinder` [@collado-torres_flexible_2017]. `recount` provides two related functions: `expressed_regions()` which is used to define a set of regions based on the mean bigWig file for a given project, and `coverage_matrix()` which based on a set of regions builds a count coverage matrix in a _RangedSummarizedExperiment_ object just like the ones that are provided for genes and exons. Both functions ultimately use `import.bw()` from `rtracklayer` [@rtracklayer] which currently is not supported on Windows machines. While this presents a portability disadvantage, on the other side it allows reading portions of bigWig files from the web without having to fully download them. `download_study()` with `type = "mean"`  or `type = "samples"` can be used to download the bigWig files, which we recommend doing when working with them extensively.
 
 For illustrative purposes, we will use the data from chromosome 21 for the SRP045638 project. First, we obtain the expressed regions using a relatively high mean cutoff of 5. We then filter the regions to keep only the ones longer than 100 base-pairs to shorten the time needed for running `coverage_matrix()`.
 
@@ -672,7 +672,7 @@ regions <- regions[width(regions) >= 100]
 length(regions)
 ```
 
-Now that we have a set of regions to work with, we proceed to build a _RangedSummarizedExperiment_ object with the coverage counts, add the expanded metadata we built for the gene level, and scale the counts. Note that `coverage_matrix()` scales the base-pair coverage counts by default, which we turn off in order to use use `scale_counts()`.
+Now that we have a set of regions to work with, we proceed to build a _RangedSummarizedExperiment_ object with the coverage counts, add the expanded metadata we built for the gene-level, and scale the counts. Note that `coverage_matrix()` scales the base-pair coverage counts by default, which we turn off in order to use use `scale_counts()`.
 
 ```{r "build_rse_ER", eval = .Platform$OS.type != "windows"}
 ## Compute coverage matrix for study SRP045638, only for chromosome 21
@@ -741,13 +741,13 @@ width(regions_by_padj[1:10])
 
 Since the DERs do not necessarily match the annotation, it is important to visualize them. The code for visualizing DERs can easily be adapted to visualize other regions. Although, the width and number of the regions will influence the computing resources needed to make the plots. 
 
-Because the unscaled BigWig files are available in recount2, several visualization packages can be used such as `epivizr` [@epivizr], `wiggleplotr` [@wiggleplotr] and `derfinderPlot` [@collado-torres_flexible_2017]. With all of them it is important to remember to scale the data except when visualizing the mean BigWig file for a given project.
+Because the unscaled bigWig files are available in recount2, several visualization packages can be used such as `epivizr` [@epivizr], `wiggleplotr` [@wiggleplotr] and `derfinderPlot` [@collado-torres_flexible_2017]. With all of them it is important to remember to scale the data except when visualizing the mean bigWig file for a given project.
 
 
-First, we need to get the list of URLs for the BigWig files. We can either manually construct them or search them inside the `recount_url` table.
+First, we need to get the list of URLs for the bigWig files. We can either manually construct them or search them inside the `recount_url` table.
 
 ```{r "find_bws", eval = .Platform$OS.type != "windows"}
-## Construct the list of BigWig URLs
+## Construct the list of bigWig URLs
 ## They have the following form:
 ## http://duffel.rail.bio/recount/
 ## project id
