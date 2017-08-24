@@ -6,7 +6,7 @@ The recount2 resource is composed of over 70,000 uniformly processed human RNA-s
 
 ## Bioconductor installation 
 
-The workflow is available on Bioconductor at https://www.bioconductor.org/help/workflows/recountWorkflow/.
+The workflow is available on Bioconductor at https://www.bioconductor.org/help/workflows/recountWorkflow/ and F1000Research at https://f1000research.com/articles/6-1558/v1.
 
 All the packages used in this workflow get installed by installing the workflow corresponding package:
 

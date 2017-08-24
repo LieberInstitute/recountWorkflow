@@ -882,7 +882,7 @@ In this workflow we described in detail the available data in recount2, how the 
 
 # Session information
 
-This workflow was created using `BiocWorkflowTools` [@biocWorkflow]. The session information is available in Supplementary File 2. The published version of this workflow [@recountWorkflow] is available via F1000Research at TODO-INSERT-URL.
+This workflow was created using `BiocWorkflowTools` [@biocWorkflow]. The session information is available in Supplementary File 2. The published version of this workflow [@recountWorkflow] is available via F1000Research at [f1000research.com/articles/6-1558/v1](https://f1000research.com/articles/6-1558/v1).
 
 ```{r sessionInfo}
 ## Final list of files created
