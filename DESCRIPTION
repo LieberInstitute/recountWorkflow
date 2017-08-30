@@ -1,7 +1,7 @@
 Package: recountWorkflow
 Title: recount workflow: accessing over 70,000 human RNA-seq samples with
     Bioconductor
-Version: 0.99.22
+Version: 0.99.23
 Authors@R: c(person("Leonardo", "Collado-Torres", role = c("aut", "cre"),
     email = "lcollado@jhu.edu"), person("Abhinav", "Nellore", role = "ctb",
     email = "anellore@gmail.com"), person(c("Andrew", "E."), "Jaffe",
@@ -36,7 +36,7 @@ Imports:
     org.Hs.eg.db (>= 3.4.1),
     gplots,
     derfinder,
-    rtracklayer,
+    rtracklayer (>= 1.36.4),
     GenomicFeatures,
     bumphunter,
     derfinderPlot
