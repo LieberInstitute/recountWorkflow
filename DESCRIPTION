@@ -1,7 +1,7 @@
 Package: recountWorkflow
 Title: recount workflow: accessing over 70,000 human RNA-seq samples with
     Bioconductor
-Version: 0.99.21
+Version: 0.99.22
 Authors@R: c(person("Leonardo", "Collado-Torres", role = c("aut", "cre"),
     email = "lcollado@jhu.edu"), person("Abhinav", "Nellore", role = "ctb",
     email = "anellore@gmail.com"), person(c("Andrew", "E."), "Jaffe",
@@ -26,22 +26,22 @@ biocViews: WorkflowStep, Coverage, DifferentialExpression, GeneExpression,
     RNASeq, Sequencing, DataImport
 VignetteBuilder: knitr
 Imports:
-    recount (>= 1.3.2),
+    recount (>= 1.2.3),
     GenomicRanges,
     limma,
     edgeR,
     DESeq2,
-    regionReport (>= 1.11.2),
-    clusterProfiler (>= 3.5.5),
+    regionReport (>= 1.10.2),
+    clusterProfiler (>= 3.4.4),
     org.Hs.eg.db (>= 3.4.1),
     gplots,
     derfinder,
     rtracklayer,
     GenomicFeatures,
-    bumphunter (>= 1.17.2),
+    bumphunter,
     derfinderPlot
 Suggests:
-    BiocStyle (>= 2.5.19),
+    BiocStyle,
     knitr,
     devtools,
     rmarkdown,

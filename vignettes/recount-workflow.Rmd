@@ -18,14 +18,14 @@ author:
     - Department of Biostatistics, Johns Hopkins Bloomberg School of Public Health, Baltimore, MD, 21205, USA
     - Department of Mental Health, Johns Hopkins Bloomberg School of Public Health, Baltimore, MD, 21205, USA
     
-date: August 24, 2017
+date: August 30, 2017
 vignette: >
   %\VignetteIndexEntry{recount workflow: accessing over 70,000 human RNA-seq samples with Bioconductor}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8} 
 bibliography: recount-workflow.bib
 output: 
-  BiocStyle::html_document:
+  BiocStyle::html_document2:
     self_contained: yes
     toc: true
     toc_float: true
@@ -539,9 +539,9 @@ library("org.Hs.eg.db")
 head(rownames(limma_res))
 
 ## Perform enrichment analysis for Biological Process (BP)
-## Note that the argument is keytype instead of keyType in Bioconductor 3.5
+## Note that the argument is keyType instead of keytype in Bioconductor 3.6
 enrich_go <- enrichGO(gene = rownames(limma_res)[limma_res$padj < 0.001],
-    OrgDb = org.Hs.eg.db, keyType = "ENSEMBL", ont = "BP",
+    OrgDb = org.Hs.eg.db, keytype = "ENSEMBL", ont = "BP",
     pAdjustMethod = "BH", pvalueCutoff = 0.01, qvalueCutoff = 0.05,
     universe = rownames(limma_res))
 
@@ -824,18 +824,36 @@ gencode_v25_hg38_txdb
 Now that we have a TxDb object for Gencode v25 on hg38 coordinates, we can use `bumphunter`'s [@bumphunter] annotation functions for annotating the original 10 regions we were working with. Since we are using Ensembl instead of Entrez gene IDs, we need to pass this information to `annotateTranscripts()`. Otherwise, the function will fail to retrieve the gene symbols.
 
 ```{r "bump_ann", eval = .Platform$OS.type != "windows"}
-library("bumphunter")
-## Annotate all transcripts for gencode v25 based on the TxDb object
-## we built previously.
-ann_gencode_v25_hg38 <- annotateTranscripts(gencode_v25_hg38_txdb,
-    annotationPackage = "org.Hs.eg.db",
-    mappingInfo = list("column" = "ENTREZID", "keytype" = "ENSEMBL",
-    "multiVals" = "first"))
+## The bumphunter functions annotateTranscripts() and matchGenes() currently
+## only work with Gencode TxDb objects in Bioc-devel. That is, bumphunter
+## version 1.17.2 or newer. At the latest, they will be made part of
+## Bioc-release by October 2017.
+if(packageVersion("bumphunter") >= '1.17.2') {
+    library("bumphunter")
+    ## Annotate all transcripts for gencode v25 based on the TxDb object
+    ## we built previously.
+    ann_gencode_v25_hg38 <- annotateTranscripts(gencode_v25_hg38_txdb,
+        annotationPackage = "org.Hs.eg.db",
+        mappingInfo = list("column" = "ENTREZID", "keytype" = "ENSEMBL",
+        "multiVals" = "first"))
     
-## Annotate the regions of interest
-## Note that we are using the original regions, not the resized ones
-nearest_ann <- matchGenes(regions_by_padj[1:10], ann_gencode_v25_hg38)
+    ## Annotate the regions of interest
+    ## Note that we are using the original regions, not the resized ones
+    nearest_ann <- matchGenes(regions_by_padj[1:10], ann_gencode_v25_hg38)
+} else {
+    ## Manually include the output when necessary.
+    nearest_ann <- data.frame(
+        name = c("TRPM2", "ETS2", "LRRC3", "LRRC3", "MCM3AP-AS1", "LRRC3",
+            NA, "DOPEY2", "S100B", "PCP4"),
+        distance = c(16136, 16843, 3286, 3040, 21254, 5845, 0, 61030,
+            3264, 30507),
+        region = c("overlaps 3'", "inside", "inside", "inside", "inside",
+            "inside", "overlaps 5'", "inside", "overlaps 3'", "inside"),
+        stringsAsFactors = FALSE
+    )
+}
 ```
+
 
 The final piece we need to run `plotRegionCoverage()` is information about which base-pairs are exonic, intronic, etc. This is done via the `annotateRegions()` function in `derfinder`, which itself requires prior processing of the TxDb information by `makeGenomicState()`.
 
