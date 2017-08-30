@@ -34,6 +34,11 @@ output:
 csl: f1000-research.csl
 ---
 
+```{r setup_knitr, include = FALSE}
+## For windows figure issues
+knitr::opts_chunk$set(, fig.path = "figure/")
+```
+
 # Introduction
 
 RNA sequencing (RNA-seq) is now the most widely used high-throughput assay for measuring gene expression. In a typical RNA-seq experiment, several million reads are sequenced per sample. The reads are often aligned to the reference genome using a splice-aware aligner to identify where reads originated. Resulting alignment files are then used to compute count matrices for several analyses such as identifying differentially expressed genes. The Bioconductor project [@huber2015] has many contributed packages that specialize in analyzing this type of data and previous workflows have explained how to use them [@Law2016a; @Love2016; @Chen2016]. Initial steps are typically focused on generating the count matrices. Some pre-computed matrices have been made available via the ReCount project [@frazee2011] or Bioconductor Experiment data packages such as the `airway` dataset [@airway]. The pre-computed count matrices in ReCount have been useful to RNA-seq methods developers and to researchers seeking to avoid the computationally intensive process of creating these matrices. In the years since ReCount was published, hundreds of new RNA-seq projects have been carried out, and researchers have shared the data publicly.
