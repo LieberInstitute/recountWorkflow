@@ -36,7 +36,7 @@ csl: f1000-research.csl
 
 ```{r setup_knitr, include = FALSE}
 ## For windows figure issues
-knitr::opts_chunk$set(, fig.path = "figure/")
+knitr::opts_chunk$set(fig.path = "figure/")
 ```
 
 # Introduction
