@@ -18,14 +18,14 @@ author:
     - Department of Biostatistics, Johns Hopkins Bloomberg School of Public Health, Baltimore, MD, 21205, USA
     - Department of Mental Health, Johns Hopkins Bloomberg School of Public Health, Baltimore, MD, 21205, USA
     
-date: August 30, 2017
+date: August 31, 2017
 vignette: >
   %\VignetteIndexEntry{recount workflow: accessing over 70,000 human RNA-seq samples with Bioconductor}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8} 
 bibliography: recount-workflow.bib
 output: 
-  BiocStyle::html_document:
+  BiocStyle::html_document2:
     self_contained: yes
     fig_caption: true
 csl: f1000-research.csl
@@ -100,11 +100,7 @@ fig_nums("erdeanalysis4", "Volcano plot of the expressed regions level data. Tes
 fig_nums("regionplots", "Base-pair resolution plot of differentially expressed region 1.")
 
 fig_cap <- function(x) {
-    if(on.bioc) {
-        return(fig_nums(x))
-    } else {
-        return(gsub("Figure  [0-9]{1,2}: ", "", fig_nums(x)))
-    }
+    gsub("Figure  [0-9]{1,2}: ", "", fig_nums(x))
 }
 fig_cite <- function(x) {
     ifelse(on.bioc, fig_nums(x, display = "num"), paste0("\\@ref(fig:", x, ")"))
@@ -1000,7 +996,7 @@ No competing interests were disclosed.
 
 # Grant information
 
-LCT and AEJ were supported by NIH grant R21 MH109956-01.
+LCT and AEJ were supported by the National Institutes of Health (grant R21 MH109956-01). LCT and AN were supported by the National Institutes of Health (grant R01 GM105705).
 
 # Acknowledgments
 
