@@ -460,15 +460,11 @@ Now that we have all the metadata available we can perform a DE analysis. The or
 
 ```{r "age_groups"}
 ## Create the original 6 age groups
-colData(rse_gene)$age_group <- factor(
-    ifelse(colData(rse_gene)$age < 0, "prenatal",
-    ifelse(colData(rse_gene)$age >= 0 & colData(rse_gene)$age < 1, "infant",
-    ifelse(colData(rse_gene)$age >= 1 & colData(rse_gene)$age < 10, "child",
-    ifelse(colData(rse_gene)$age>= 10 & colData(rse_gene)$age < 20, "teen",
-    ifelse(colData(rse_gene)$age>= 20 & colData(rse_gene)$age < 50, "adult",
-        "late life" ))))),
-    levels = c("prenatal", "infant", "child", "teen", "adult", "late life")
-)
+
+age_bins <- cut( colData(rse_gene)$age, c(-1, 0, 1, 10, 20, 50, Inf), include.lowest=TRUE )
+levels( age_bins ) <- c("prenatal", "infant", "child", "teen", "adult", "late life")
+colData(rse_gene)$age_group <- age_bins
+
 ```
 
 Most of the DE signal from the original study was between the prenatal and postnatal samples. To simplify the analysis, we will focus on this comparison.
