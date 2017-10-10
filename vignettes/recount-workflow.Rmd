@@ -96,19 +96,19 @@ library("devtools")
 
 The most accessible features are the gene, exon and exon-exon junction count matrices. This section explains them in greater detail. Figure \@ref(fig:Figure3) shows 16 RNA-seq reads, each 3 base-pairs long, and a reference genome.
 
-```{r Figure3, out.width="70%", fig.align="center", fig.cap = "RNA-seq starting data. 16 RNA-seq un-aligned RNA-seq reads 3 base-pairs long are shown (pink boxes) alongside a reference genome that is 16 base-pairs long (white box).", echo = FALSE}
+```{r Figure3, out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "RNA-seq starting data. 16 RNA-seq un-aligned RNA-seq reads 3 base-pairs long are shown (pink boxes) alongside a reference genome that is 16 base-pairs long (white box).", echo = FALSE}
 knitr::include_graphics("Figure3.png")
 ```
 
 Reads in the recount2 resource were aligned with the splice-aware Rail-RNA aligner [@rail2016]. Figure \@ref(fig:Figure4) shows the reads aligned to the reference genome. Some of the reads are split as they span an exon-exon junction. Two of the reads were soft clipped meaning that just a portion of the reads aligned (top left in purple). 
 
-```{r Figure4, out.width="70%", fig.align="center", fig.cap = "Aligned RNA-seq reads. Spice-aware RNA-seq aligners such as Rail-RNA are able to find the coordinates to which the reads map, even if they span exon-exon junctions (connected boxes). Rail-RNA soft clips some reads (purple boxes with rough edges) such that a portion of these reads align to the reference genome.", echo = FALSE}
+```{r Figure4, out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Aligned RNA-seq reads. Spice-aware RNA-seq aligners such as Rail-RNA are able to find the coordinates to which the reads map, even if they span exon-exon junctions (connected boxes). Rail-RNA soft clips some reads (purple boxes with rough edges) such that a portion of these reads align to the reference genome.", echo = FALSE}
 knitr::include_graphics("Figure4.png")
 ```
 
 In order to compute the gene and exon count matrices we first have to process the annotation, which for recount2 is Gencode v25 (CHR regions) with hg38 coordinates. Although `recount` can generate count matrices for other annotations using hg38 coordinates. Figure \@ref(fig:Figure5) shows two isoforms for a gene composed of 3 different exons. 
 
-```{r Figure5, out.width="70%", fig.align="center", fig.cap = "Gene annotation. A single gene with two isoforms composed by three distinct exons (blue boxes) is illustrated. Exons 1 and 3 share the first five base-pairs while exon 2 is common to both isoforms.", echo = FALSE}
+```{r Figure5, out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Gene annotation. A single gene with two isoforms composed by three distinct exons (blue boxes) is illustrated. Exons 1 and 3 share the first five base-pairs while exon 2 is common to both isoforms.", echo = FALSE}
 knitr::include_graphics("Figure5.png")
 ```
 
@@ -122,19 +122,19 @@ disjoin(exons)
 ```
 
 
-```{r Figure6, out.width="70%", fig.align="center", fig.cap = "Disjoint exons. Windows of distinct exonic sequence for the example gene. Disjoint exons 1 and 2 form exon 1.", echo = FALSE}
+```{r Figure6, out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Disjoint exons. Windows of distinct exonic sequence for the example gene. Disjoint exons 1 and 2 form exon 1.", echo = FALSE}
 knitr::include_graphics("Figure6.png")
 ```
 
 Now that we have disjoint exons, we can compute the base-pair coverage for each of them as shown in Figure \@ref(fig:Figure7). That is, for each base-pair that corresponds to exonic sequence, we compute the number of reads overlapping that given base-pair. For example, the first base-pair is covered by 3 different reads and it does not matter whether the reads themselves were soft clipped. Not all reads or bases of a read contribute information to this step, as some do not overlap known exonic sequence (light pink in Figure \@ref(fig:Figure7)).
 
-```{r Figure7, out.width="70%", fig.align="center", fig.cap = "Base-pair coverage counting for exonic base-pairs. At each exonic base-pair we compute the number of reads overlapping that given base-pair. The first base (orange arrow) has 3 reads overlapping that base-pair. Base-pair 11 has a coverage of 3 but does not overlap known exonic sequence, so that information is not used for the gene and exon count matrices (grey arrow). If a read partially overlaps exonic sequence, only the portion that overlaps is used in the computation (see right most read).", echo = FALSE}
+```{r Figure7, out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Base-pair coverage counting for exonic base-pairs. At each exonic base-pair we compute the number of reads overlapping that given base-pair. The first base (orange arrow) has 3 reads overlapping that base-pair. Base-pair 11 has a coverage of 3 but does not overlap known exonic sequence, so that information is not used for the gene and exon count matrices (grey arrow). If a read partially overlaps exonic sequence, only the portion that overlaps is used in the computation (see right most read).", echo = FALSE}
 knitr::include_graphics("Figure7.png")
 ```
 
 With base-pair coverage for the exonic sequences computed, the coverage count for each distinct exon is simply the sum of the base-pair coverage for each base in a given distinct exon. For example, the coverage count for disjoint exon 2 is $2 + 2 + 3 = 7$ as shown in Figure \@ref(fig:Figure8). The gene coverage count is then $\sum_i^n \texttt{coverage}_i$ where $n$ is the number of exonic base-pairs for the gene and is equal to the sum of the coverage counts for its disjoint exons as shown in Figure \@ref(fig:Figure8). 
 
-```{r Figure8, out.width="70%", fig.align="center", fig.cap = "Exon and gene coverage counts. The coverage counts for each disjoint exon are the sum of the base-pair coverage. The gene coverage count is the sum of the disjoint exons coverage counts.", echo = FALSE}
+```{r Figure8, out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Exon and gene coverage counts. The coverage counts for each disjoint exon are the sum of the base-pair coverage. The gene coverage count is the sum of the disjoint exons coverage counts.", echo = FALSE}
 knitr::include_graphics("Figure8.png")
 ```
 
@@ -188,7 +188,7 @@ points(seq_len(length(cov)), cov, col = "violetred1", type = "o",
 dev.off()
 ```
 
-```{r Figure9, out.width="70%", fig.align="center", fig.cap = "Area under coverage (AUC). The area under coverage is the sum of the base-pair coverage for all positions in the genome regardless of the annotation. It is the area under the base-level coverage curve shown as the light blue area under the pink curve.", echo = FALSE}
+```{r Figure9, out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Area under coverage (AUC). The area under coverage is the sum of the base-pair coverage for all positions in the genome regardless of the annotation. It is the area under the base-level coverage curve shown as the light blue area under the pink curve.", echo = FALSE}
 knitr::include_graphics("Figure9.png")
 ```
 
@@ -206,17 +206,17 @@ summary(colSums(assays(rse_scaled)$counts)) / 1e6
 
 Data in recount2 can be used for annotation-agnostic analyses and enriching the known annotation. Just like exon and gene coverage count matrices, recount2 provides exon-exon junction count matrices. These matrices can be used to identify new isoforms (Figure \@ref(fig:Figure10)) or identify differentially expressed isoforms. For example, exon-exon junctions 2, 5 and 6 in Figure \@ref(fig:Figure1) are only present in one annotated isoform. `Snaptron` [@Wilks2017] allows programatic and high-level queries of the exon-exon junction information and its graphical user interface is specially useful for visualizing this data. Inside R, the `recount` function `snaptron_query()` can be used for searching specific exon-exon junctions in recount2.
 
-```{r Figure10, out.width="70%", fig.align="center", fig.cap = "Exon-exon junctions go beyond the annotation. Reads spanning exon-exon junctions are highlighted and compared against the annotation. Three of them match the annotated junctions, but one (blue and orange read) spans an unannotated exon-exon junction with the left end matching the annotation and the right end hinting at a possible new isoform for this gene (blue and orange isoform).", echo = FALSE}
+```{r Figure10, out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Exon-exon junctions go beyond the annotation. Reads spanning exon-exon junctions are highlighted and compared against the annotation. Three of them match the annotated junctions, but one (blue and orange read) spans an unannotated exon-exon junction with the left end matching the annotation and the right end hinting at a possible new isoform for this gene (blue and orange isoform).", echo = FALSE}
 knitr::include_graphics("Figure10.png")
 ```
 
 The base-pair coverage data from recount2 can be used together with `derfinder` [@collado2017a] to identify expressed regions of the genome, providing another annotation-agnostic analysis of the expression data. Using the function `expressed_regions()` we can identify regions of expression based on a given data set in recount2. These regions might overlap known exons but can also provide information about intron retention events (Figure \@ref(fig:Figure11)), improve detection of exon boundaries (Figure \@ref(fig:Figure12)), and help identify new exons (Fig \@ref(fig:Figure1)) or expressed sequences in intergenic regions. Using `coverage_matrix()` we can compute a coverage matrix based on the expressed regions or another set of genomic intervals. The resulting matrix can then be used for a DE analysis, just like the exon, gene and exon-exon junction matrices.
 
-```{r Figure11, out.width="70%", fig.align="center", fig.cap = "Intron retention events. Some reads might align with known intronic segments of the genome and provide information for exploring intron retention events (pink read). Some might support an intron retention event or a new isoform when coupled with exon-exon junction data (orange read).", echo = FALSE}
+```{r Figure11, out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Intron retention events. Some reads might align with known intronic segments of the genome and provide information for exploring intron retention events (pink read). Some might support an intron retention event or a new isoform when coupled with exon-exon junction data (orange read).", echo = FALSE}
 knitr::include_graphics("Figure11.png")
 ```
 
-```{r Figure12, out.width="70%", fig.align="center", fig.cap = "Exon boundaries. Reads that go beyond the known exon boundaries can inform us of whether the annotated boundaries are correct or if there was a run-off transcription event.", echo = FALSE}
+```{r Figure12, out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Exon boundaries. Reads that go beyond the known exon boundaries can inform us of whether the annotated boundaries are correct or if there was a run-off transcription event.", echo = FALSE}
 knitr::include_graphics("Figure12.png")
 ```
 
@@ -424,7 +424,7 @@ filter <- rowMeans(counts) > 0.5
 
 Now that we have scaled the counts, there are multiple DE packages we could use, as described elsewhere [@Love2016; @Law2016a]. Since we have 12 samples per group, which is a moderate number, we will use `limma-voom` [@law2014voom] due to its speed. The model we use tests for DE between prenatal and postnatal samples adjusting for sex and RIN, which is a measure of quality of the input sample. We check the data with multi-dimensional scaling plots (Figures \@ref(fig:limmade1) and \@ref(fig:limmade2)) as well as the mean-variance plot (Figure \@ref(fig:limmade3)). In a real use case we might have to explore the results with different models and perform sensitivity analyses.
 
-```{r "limmade1", out.width="70%", fig.align="center", fig.cap = "Multi-dimensional scaling plot of the gene-level data by age group."}
+```{r "limmade1", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Multi-dimensional scaling plot of the gene-level data by age group."}
 library("limma")
 library("edgeR")
 
@@ -438,7 +438,7 @@ dge <- calcNormFactors(dge)
 plotMDS(dge, labels = substr(colData(rse_gene_scaled)$prenatal, 1, 2) )
 ```
 
-```{r "limmade2", out.width="70%", fig.align="center", fig.cap = "Multi-dimensional scaling plot of the gene-level data by sex."}
+```{r "limmade2", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Multi-dimensional scaling plot of the gene-level data by sex."}
 plotMDS(dge, labels = substr(colData(rse_gene_scaled)$sex, 1, 1) )
 tapply(colData(rse_gene_scaled)$RIN, colData(rse_gene_scaled)$prenatal, summary)
 
@@ -446,7 +446,7 @@ tapply(colData(rse_gene_scaled)$RIN, colData(rse_gene_scaled)$prenatal, summary)
 design <- with(colData(rse_gene_scaled), model.matrix(~ sex + RIN + prenatal))
 ```
 
-```{r "limmade3", out.width="70%", fig.align="center", fig.cap = "voom mean-variance plot of the gene-level data."}
+```{r "limmade3", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "voom mean-variance plot of the gene-level data."}
 ## Run voom
 v <- voom(dge, design, plot = TRUE)
 
@@ -459,12 +459,12 @@ fit <- eBayes(fit)
 
 Having run the DE analysis, we can explore some of the top results either with an MA plot (Figure \@ref(fig:limmaplots1)) and a volcano plot Figure (\@ref(fig:limmaplots2)). Both reveal very strong and widespread DE signal.
 
-```{r "limmaplots1", out.width="70%", fig.align="center", fig.cap = "MA plot of the gene-level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
+```{r "limmaplots1", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "MA plot of the gene-level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
 ## Visually explore DE results
 limma::plotMA(fit, coef = 4)
 ```
 
-```{r "limmaplots2", out.width="70%", fig.align="center", fig.cap = "Volcano plot of the gene-level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
+```{r "limmaplots2", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Volcano plot of the gene-level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
 limma::volcanoplot(fit, coef = 4)
 ```
 
@@ -526,7 +526,7 @@ browseURL(file.path("SRP045638", "gene_report.html"))
 
 Using `clusterProfiler` [@clusterProfiler] we can then perform several enrichment analyses using the Ensembl gene IDs. Here we show how to perform an enrichment analysis using the biological process ontology (Figure \@ref(fig:goanalysis)).
 
-```{r "goanalysis", out.width="70%", fig.align="center", fig.cap = "Biological processes enriched in the DE genes."}
+```{r "goanalysis", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Biological processes enriched in the DE genes."}
 library("clusterProfiler")
 library("org.Hs.eg.db")
 
@@ -556,7 +556,7 @@ The exon and exon-exon junction coverage count matrices are similar to the gene-
 
 Below we repeat the gene-level analysis for the disjoint exon data. We first download the exon data, add the expanded metadata we constructed for the gene analysis, explore the data (Figure1 \@ref(fig:exondeanalysis1)), and then perform the DE analysis using `limma-voom`.
 
-```{r "exondeanalysis1", out.width="70%", fig.align="center", fig.cap = "voom mean-variance plot of the exon-level data."}
+```{r "exondeanalysis1", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "voom mean-variance plot of the exon-level data."}
 ## Download the data if it is not there
 if(!file.exists(file.path("SRP045638", "rse_exon.Rdata"))) {
     download_study("SRP045638", type = "rse-exon")
@@ -586,7 +586,7 @@ dge_exon <- calcNormFactors(dge_exon)
 v_exon <- voom(dge_exon, design, plot = TRUE)
 ```
 
-```{r "exondeanalysis2", out.width="70%", fig.align="center", fig.cap = "Volcano plot of the exon-level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
+```{r "exondeanalysis2", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Volcano plot of the exon-level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
 ## Run remaining parts of the DE analysis
 fit_exon <- lmFit(v_exon, design)
 fit_exon <- eBayes(fit_exon)
@@ -602,7 +602,7 @@ table(top_exon$adj.P.Val < 0.001)
 
 Just like at the gene-level, we see many exons differentially expressed between prenatal and postnatal samples (Figure \@ref(fig:exondeanalysis2)). As a first step to integrate the results from the two features, we can compare the list of genes that are differentially expressed versus the genes that have at least one exon differentially expressed.
 
-```{r "geneexon", out.width="70%", fig.align="center", fig.cap = "Venn diagram of the overlap between DE genes and genes with at least one exon DE."}
+```{r "geneexon", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Venn diagram of the overlap between DE genes and genes with at least one exon DE."}
 ## Get the gene IDs for genes that are DE at the gene-level or that have at
 ## least one exon with DE signal.
 genes_w_de_exon <- unique(rownames(rse_exon_scaled)[top_exon$adj.P.Val < 0.001])
@@ -687,7 +687,7 @@ rm(rse_er)
 
 Now that we have a scaled count matrix for the expressed regions, we can proceed with the DE analysis just like we did at the gene and exon feature levels (Figures \@ref(fig:erdeanalysis1), \@ref(fig:erdeanalysis2), \@ref(fig:erdeanalysis3), and \@ref(fig:erdeanalysis4)).
 
-```{r "erdeanalysis1", eval = .Platform$OS.type != "windows", out.width="70%", fig.align="center", fig.cap = "Multi-dimensional scaling plot of the expressed regions level data by age group."}
+```{r "erdeanalysis1", eval = .Platform$OS.type != "windows", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Multi-dimensional scaling plot of the expressed regions level data by age group."}
 ## Build DGEList object
 dge_er <- DGEList(counts = assays(rse_er_scaled)$counts)
 
@@ -698,11 +698,11 @@ dge_er <- calcNormFactors(dge_er)
 plotMDS(dge_er, labels = substr(colData(rse_er_scaled)$prenatal, 1, 2) )
 ```
 
-```{r "erdeanalysis2", eval = .Platform$OS.type != "windows", out.width="70%", fig.align="center", fig.cap = "Multi-dimensional scaling plot of the expressed regions level data by sex."}
+```{r "erdeanalysis2", eval = .Platform$OS.type != "windows", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Multi-dimensional scaling plot of the expressed regions level data by sex."}
 plotMDS(dge_er, labels = substr(colData(rse_er_scaled)$sex, 1, 1) )
 ```
 
-```{r "erdeanalysis3", eval = .Platform$OS.type != "windows", out.width="70%", fig.align="center", fig.cap = "voom mean-variance plot of the expressed regions level data."}
+```{r "erdeanalysis3", eval = .Platform$OS.type != "windows", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "voom mean-variance plot of the expressed regions level data."}
 ## Run voom
 v_er <- voom(dge_er, design, plot = TRUE)
 
@@ -711,7 +711,7 @@ fit_er <- lmFit(v_er, design)
 fit_er <- eBayes(fit_er)
 ```
 
-```{r "erdeanalysis4", eval = .Platform$OS.type != "windows", out.width="70%", fig.align="center", fig.cap = "Volcano plot of the expressed regions level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
+```{r "erdeanalysis4", eval = .Platform$OS.type != "windows", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Volcano plot of the expressed regions level data. Testing for prenatal and postnatal DE adjusting for sex and RIN."}
 ## Visually explore the results
 limma::volcanoplot(fit_er, coef = 4)
 
@@ -846,8 +846,9 @@ regions_ann <- annotateRegions(regions_resized,
 
 We can finally use `plotRegionCoverage()` to visualize the top 10 regions coloring by whether they are prenatal or postnatal samples. Known exons are shown in dark blue, introns in light blue.
 
-```{r "regionplots", eval = .Platform$OS.type != "windows", out.width="75%", fig.align="center", fig.cap = paste0("Base-pair resolution plot of differentially expressed region ", 1:10, ".")}
+```{r "regionplots", eval = .Platform$OS.type != "windows", out.width="100%", fig.align="center", fig.cap = 'Base-pair resolution plot of differentially expressed region 2.'}
 library("derfinderPlot")
+pdf('region_plots.pdf')
 plotRegionCoverage(regions = regions_resized, regionCoverage = regionCov, 
    groupInfo = colData(rse_er_scaled)$prenatal,
    nearestAnnotation = nearest_ann, 
@@ -855,9 +856,19 @@ plotRegionCoverage(regions = regions_resized, regionCoverage = regionCov,
    txdb = gencode_v25_hg38_txdb,
    scalefac = 1, ylab = "Coverage (RP40M, 100bp)",
    ask = FALSE, verbose = FALSE)
+dev.off()
+
+## Visualize DER #1
+plotRegionCoverage(regions = regions_resized, regionCoverage = regionCov, 
+   groupInfo = colData(rse_er_scaled)$prenatal,
+   nearestAnnotation = nearest_ann, 
+   annotatedRegions = regions_ann,
+   txdb = gencode_v25_hg38_txdb,
+   scalefac = 1, ylab = "Coverage (RP40M, 100bp)",
+   ask = FALSE, verbose = FALSE, whichRegions = 2)
 ```
 
-In these plots we can see that some DERs match known exons (Figures \@ref(fig:regionplots2), \@ref(fig:regionplots8), \@ref(fig:regionplots10)), some are longer than known exons (Figures \@ref(fig:regionplots1), \@ref(fig:regionplots7), \@ref(fig:regionplots9)), and others are exon fragments (Figures \@ref(fig:regionplots3), \@ref(fig:regionplots4), \@ref(fig:regionplots5), \@ref(fig:regionplots6)) which could be due to the cutoff used. Note that Figure \@ref(fig:regionplots7) could be shorter than a known exon due to a coverage dip.
+In plots like Figure \@ref(fig:regionplots) we can see that some DERs match known exons (DERs 2, 8, 10), some are longer than known exons (DERs 1, 7, 9), and others are exon fragments (DERs 3, 4, 5, 6) which could be due to the cutoff used. Note that DER 7 could be shorter than a known exon due to a coverage dip.
 
 # Summary
 
