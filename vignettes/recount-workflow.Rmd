@@ -67,9 +67,9 @@ In this workflow we will use several Bioconductor packages. To reproduce the ent
 ## Install packages from Bioconductor
 source("https://bioconductor.org/biocLite.R")
 biocLite(c("recount", "GenomicRanges", "limma", "edgeR", "DESeq2",
-    "regionReport", "clusterProfiler", "org.Hs.eg.db", "gplots", "derfinder",
-    "rtracklayer", "GenomicFeatures", "bumphunter", "derfinderPlot",
-    "devtools"))
+    "regionReport", "clusterProfiler", "org.Hs.eg.db", "gplots",
+    "derfinder", "rtracklayer", "GenomicFeatures", "bumphunter",
+    "derfinderPlot", "devtools"))
 ```
 
 Once they are installed, load all the packages with the following code.
@@ -179,12 +179,12 @@ sum(cov)
 pdf("base_pair_coverage.pdf", width = 20)
 par(mar = c(5, 6, 4, 2) + 0.1)
 plot(cov, type = "o", col = "violetred1", lwd = 10, ylim = c(0, 5),
-     xlab = "Genome", ylab = "Coverage", cex.axis = 2, cex.lab = 3,
-     bty = "n")
+    xlab = "Genome", ylab = "Coverage", cex.axis = 2, cex.lab = 3,
+    bty = "n")
 polygon(c(1, seq_len(length(cov)), length(cov)), c(0, cov, 0),
-        border = NA, density = -1, col = "light blue")
+    border = NA, density = -1, col = "light blue")
 points(seq_len(length(cov)), cov, col = "violetred1", type = "o",
-       lwd = 10)
+    lwd = 10)
 dev.off()
 ```
 
@@ -264,15 +264,19 @@ Several of these technical variables include the number of reads as reported by 
 ```{r "explore colData"}
 ## Input reads: number reported by SRA might be larger than number
 ## of reads Rail-RNA downloaded
-colData(rse_gene)[, c("read_count_as_reported_by_sra", "reads_downloaded")]
-summary(colData(rse_gene)$proportion_of_reads_reported_by_sra_downloaded)
+colData(rse_gene)[,
+    c("read_count_as_reported_by_sra", "reads_downloaded")]
+summary(
+    colData(rse_gene)$proportion_of_reads_reported_by_sra_downloaded
+)
 
 ## AUC information used by scale_counts() by default
 head(colData(rse_gene)$auc)
 
 ## Alternatively, scale_scounts() can use the number of mapped reads
 ## and other information
-colData(rse_gene)[, c("mapped_read_count", "paired_end", "avg_read_length")]
+colData(rse_gene)[, c("mapped_read_count", "paired_end",
+    "avg_read_length")]
 ```
 
 #### Biological information
@@ -354,7 +358,8 @@ head(sra)
 colnames(sra) <- gsub("_s$", "", colnames(sra))
 
 ## Choose some variables we want to add
-sra_vars <- c("sex", "race", "RIN", "age", "isolate", "disease", "tissue")
+sra_vars <- c("sex", "race", "RIN", "age", "isolate", "disease",
+    "tissue")
 
 ## Re-organize the SRA table based on the SRA Run IDs we have
 sra <- sra[match(colData(rse_gene)$run, sra$Run), ]
@@ -397,7 +402,8 @@ Most of the DE signal from the original study was between the prenatal and postn
 ```{r "prenatal_factor"}
 ## Create prenatal factor
 colData(rse_gene)$prenatal <- factor(
-    ifelse(colData(rse_gene)$age_group == "prenatal", "prenatal", "postnatal"),
+    ifelse(colData(rse_gene)$age_group == "prenatal", "prenatal",
+        "postnatal"),
     levels = c("prenatal", "postnatal"))
 ```
 
@@ -440,10 +446,12 @@ plotMDS(dge, labels = substr(colData(rse_gene_scaled)$prenatal, 1, 2) )
 
 ```{r "limmade2", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Multi-dimensional scaling plot of the gene-level data by sex."}
 plotMDS(dge, labels = substr(colData(rse_gene_scaled)$sex, 1, 1) )
-tapply(colData(rse_gene_scaled)$RIN, colData(rse_gene_scaled)$prenatal, summary)
+tapply(colData(rse_gene_scaled)$RIN, colData(rse_gene_scaled)$prenatal,
+    summary)
 
 ## Specify our design matrix
-design <- with(colData(rse_gene_scaled), model.matrix(~ sex + RIN + prenatal))
+design <- with(colData(rse_gene_scaled),
+    model.matrix(~ sex + RIN + prenatal))
 ```
 
 ```{r "limmade3", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "voom mean-variance plot of the gene-level data."}
@@ -475,7 +483,8 @@ Now that we have the DE results, we can use some of the tools with the biocView 
 
 ```{r "report_setup"}
 ## Extract data from limma-voom results
-top <- topTable(fit, number = Inf, sort.by = "none", coef = "prenatalpostnatal")
+top <- topTable(fit, number = Inf, sort.by = "none",
+    coef = "prenatalpostnatal")
 
 ## Build a DESeqDataSet with the count data and model we used
 library("DESeq2")
@@ -510,9 +519,11 @@ Having converted our `limma-voom` results to `DESeq2` results, we can now create
 ```{r "create_report", cache = TRUE, message = FALSE, warning = FALSE, results = "hide"}
 library("regionReport")
 ## This takes about 20 minutes to run
-report <- DESeq2Report(dds, project = "SRP045638 gene results with limma-voom",
-        output = "gene_report", outdir = "SRP045638",
-        intgroup = c("prenatal", "sex"), res = limma_res, software = "limma")
+report <- DESeq2Report(dds,
+    project = "SRP045638 gene results with limma-voom",
+    output = "gene_report", outdir = "SRP045638",
+    intgroup = c("prenatal", "sex"), res = limma_res,
+    software = "limma")
 ```
 
 If the report doesn't open automatically, we can open it with `browseURL()`. A pre-computed version is available as Supplementary File 1.
@@ -535,7 +546,8 @@ head(rownames(limma_res))
 
 ## Perform enrichment analysis for Biological Process (BP)
 ## Note that the argument is keytype instead of keyType in Bioconductor 3.5
-enrich_go <- enrichGO(gene = rownames(limma_res)[limma_res$padj < 0.001],
+enrich_go <- enrichGO(
+    gene = rownames(limma_res)[limma_res$padj < 0.001],
     OrgDb = org.Hs.eg.db, keyType = "ENSEMBL", ont = "BP",
     pAdjustMethod = "BH", pvalueCutoff = 0.01, qvalueCutoff = 0.05,
     universe = rownames(limma_res))
@@ -577,7 +589,8 @@ filter_exon <- rowMeans(assays(rse_exon_scaled)$counts) > 0.5
 round(table(filter_exon) / length(filter_exon) * 100, 2)
 
 ## Build DGEList object
-dge_exon <- DGEList(counts = assays(rse_exon_scaled)$counts[filter_exon, ])
+dge_exon <- DGEList(
+    counts = assays(rse_exon_scaled)$counts[filter_exon, ])
 
 ## Calculate normalization factors
 dge_exon <- calcNormFactors(dge_exon)
@@ -605,8 +618,10 @@ Just like at the gene-level, we see many exons differentially expressed between 
 ```{r "geneexon", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Venn diagram of the overlap between DE genes and genes with at least one exon DE."}
 ## Get the gene IDs for genes that are DE at the gene-level or that have at
 ## least one exon with DE signal.
-genes_w_de_exon <- unique(rownames(rse_exon_scaled)[top_exon$adj.P.Val < 0.001])
-genes_de <- rownames(rse_gene_scaled)[which(filter)[top$adj.P.Val < 0.001]]
+genes_w_de_exon <- unique(
+    rownames(rse_exon_scaled)[top_exon$adj.P.Val < 0.001])
+genes_de <- rownames(rse_gene_scaled)[
+    which(filter)[top$adj.P.Val < 0.001]]
 
 ## Make a venn diagram
 library("gplots")
@@ -672,8 +687,8 @@ Now that we have a set of regions to work with, we proceed to build a _RangedSum
 ```{r "build_rse_ER", eval = .Platform$OS.type != "windows"}
 ## Compute coverage matrix for study SRP045638, only for chromosome 21
 ## Takes about 4 minutes
-rse_er <- coverage_matrix("SRP045638", "chr21", regions, chunksize = 2000,
-    verboseLoad = FALSE, scale = FALSE)
+rse_er <- coverage_matrix("SRP045638", "chr21", regions,
+    chunksize = 2000, verboseLoad = FALSE, scale = FALSE)
 
 ## Use the expanded metadata we built for the gene model
 colData(rse_er) <- colData(rse_gene_scaled)
@@ -774,7 +789,8 @@ Next, we obtain the base-pair coverage data for each DER and scale the data to a
 ## Get the bp coverage data for the plots
 library("derfinder")
 regionCov <- getRegionCoverage(regions = regions_resized, files = bws,
-    targetSize = 40 * 1e6 * 100, totalMapped = colData(rse_er_scaled)$auc,
+    targetSize = 40 * 1e6 * 100,
+    totalMapped = colData(rse_er_scaled)$auc,
     verbose = FALSE)
 ```
 
@@ -791,7 +807,7 @@ gencode_v25_hg38 <- import(paste0(
             
 ## Keep only the chr21 info
 gencode_v25_hg38 <- keepSeqlevels(gencode_v25_hg38, "chr21",
-    pruning.mode="coarse")
+    pruning.mode = "coarse")
 
 ## Get the chromosome information for hg38
 library("GenomicFeatures")
@@ -858,7 +874,7 @@ plotRegionCoverage(regions = regions_resized, regionCoverage = regionCov,
    ask = FALSE, verbose = FALSE)
 dev.off()
 
-## Visualize DER #1
+## Visualize DER #2
 plotRegionCoverage(regions = regions_resized, regionCoverage = regionCov, 
    groupInfo = colData(rse_er_scaled)$prenatal,
    nearestAnnotation = nearest_ann, 
