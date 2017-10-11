@@ -41,7 +41,7 @@ RNA sequencing (RNA-seq) is now the most widely used high-throughput assay for m
 
 We recently uniformly processed over 70,000 publicly available human RNA-seq samples, and made the data available via the recount2 resource [@collado2017b] at [jhubiostatistics.shinyapps.io/recount/](https://jhubiostatistics.shinyapps.io/recount/). Samples in recount2 are grouped by project (over 2,000) originating from the Sequence Read Archive, the Genotype-Tissue Expression study (GTEx) and the Cancer Genome Atlas (TCGA). The processed data can be accessed via the `recount` Bioconductor package available at [bioconductor.org/packages/recount](http://bioconductor.org/packages/recount). Together, recount2 and the `recount` Bioconductor package should be considered a successor to ReCount.
 
-Due to space constraints, the recount2 publication [@collado2017b] did not cover how to use the `recount` package and other useful information for carrying out analyses with recount2 data.  We describe how the count matrices in recount2 were generated. We also review the R code necessary for using the recount2 data, whose details are important because some of this code involves multiple Bioconductor packages and changing default options. We further show: \\a) how to augment metadata that comes with datasets with metadata learned from natural language processing of associated papers as well as expression data \\b) how to perform differential expression analyses, and \\c) how to visualize the base-pair data available from recount2.
+Due to space constraints, the recount2 publication [@collado2017b] did not cover how to use the `recount` package and other useful information for carrying out analyses with recount2 data.  We describe how the count matrices in recount2 were generated. We also review the R code necessary for using the recount2 data, whose details are important because some of this code involves multiple Bioconductor packages and changing default options. We further show: (a) how to augment metadata that comes with datasets with metadata learned from natural language processing of associated papers as well as expression data (b) how to perform differential expression analyses, and (c) how to visualize the base-pair data available from recount2.
 
 # Analysis of RNA-seq data available at recount2
 
@@ -516,7 +516,7 @@ mcols(mcols(dds)) <- DataFrame(type = "results",
 
 Having converted our `limma-voom` results to `DESeq2` results, we can now create the report, which should open automatically in a browser.
 
-```{r "create_report", cache = TRUE, message = FALSE, warning = FALSE, results = "hide"}
+```{r "create_report", cache = !on.bioc, eval = !on.bioc, message = FALSE, warning = FALSE, results = "hide"}
 library("regionReport")
 ## This takes about 20 minutes to run
 report <- DESeq2Report(dds,
@@ -682,7 +682,7 @@ regions <- regions[width(regions) >= 100]
 length(regions)
 ```
 
-Now that we have a set of regions to work with, we proceed to build a _RangedSummarizedExperiment_ object with the coverage counts, add the expanded metadata we built for the gene-level, and scale the counts.  Note that `coverage_matrix()` scales the base-pair coverage counts by default, which we turn off in order to use use `scale_counts()`.
+Now that we have a set of regions to work with, we proceed to build a _RangedSummarizedExperiment_ object with the coverage counts, add the expanded metadata we built for the gene-level, and scale the counts. Note that `coverage_matrix()` scales the base-pair coverage counts by default, which we turn off in order to use use `scale_counts()`.
 
 ```{r "build_rse_ER", eval = .Platform$OS.type != "windows"}
 ## Compute coverage matrix for study SRP045638, only for chromosome 21
@@ -862,7 +862,7 @@ regions_ann <- annotateRegions(regions_resized,
 
 We can finally use `plotRegionCoverage()` to visualize the top 10 regions coloring by whether they are prenatal or postnatal samples. Known exons are shown in dark blue, introns in light blue.
 
-```{r "regionplots", eval = .Platform$OS.type != "windows", out.width="100%", fig.align="center", fig.cap = 'Base-pair resolution plot of differentially expressed region 2.'}
+```{r "regionplots", eval = .Platform$OS.type != "windows", out.width=ifelse(on.bioc, "100%", "75%"), fig.align="center", fig.cap = 'Base-pair resolution plot of differentially expressed region 2.'}
 library("derfinderPlot")
 pdf('region_plots.pdf')
 plotRegionCoverage(regions = regions_resized, regionCoverage = regionCov, 
