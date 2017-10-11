@@ -32,6 +32,7 @@ vignette: >
 
 ```{r bioc_setup, include = FALSE}
 on.bioc <- TRUE
+knitr::opts_chunk$set(fig.path = "")
 ```
 
 
