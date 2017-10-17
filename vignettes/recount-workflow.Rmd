@@ -147,12 +147,14 @@ The coverage counts described previously are the ones actually included in the r
 
 \begin{equation}
   \frac{\sum_i^n \text{coverage}_i }{\text{Read Length}} * \frac{\text{target}}{\text{mapped}} = \text{scaled read counts}
+  (\#eq:scale)
 \end{equation}
 
 From Figure \@ref(fig:Figure4) we know that Rail-RNA soft clipped some reads, so a more precise measure than the denominator of Equation \@ref(eq:scale) is the area under coverage (AUC) which is the sum of the coverage for all base-pairs of the genome, regardless of the annotation as shown in Figure \@ref(fig:Figure9). Without soft clipping reads, the AUC would be equal to the number of reads mapped multiplied by the read length. So for our example gene, the scaled counts for a library size of 20 reads would be $\frac{36}{45} * 20 = 16$ and in general calculated with Equation \@ref(eq:scale2). The following code shows how to compute the AUC given a set of aligned reads and reproduce a portion of Figure \@ref(fig:Figure9).
 
 \begin{equation}
   \frac{\sum_i^n \text{coverage}_i }{\text{AUC}} * \text{target} = \text{scaled read counts}
+  (\#eq:scale2)
 \end{equation}
 
 
