@@ -1,7 +1,7 @@
 Package: recountWorkflow
 Title: recount workflow: accessing over 70,000 human RNA-seq samples with
     Bioconductor
-Version: 1.1.0
+Version: 1.1.1
 Authors@R: c(person("Leonardo", "Collado-Torres", role = c("aut", "cre"),
     email = "lcollado@jhu.edu"), person("Abhinav", "Nellore", role = "ctb",
     email = "anellore@gmail.com"), person(c("Andrew", "E."), "Jaffe",
@@ -22,8 +22,7 @@ Description: The recount2 resource is composed of over 70,000 uniformly
 Depends: R (>= 3.4.0)
 License: Artistic-2.0
 Encoding: UTF-8
-biocViews: WorkflowStep, Coverage, DifferentialExpression, GeneExpression,
-    RNASeq, Sequencing, DataImport
+biocViews: Workflow, ResourceQueryingWorkflow
 VignetteBuilder: knitr
 Imports:
     recount (>= 1.2.3),
