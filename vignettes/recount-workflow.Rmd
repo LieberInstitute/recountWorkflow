@@ -20,7 +20,13 @@ author:
     
 abstract: The recount2 resource is composed of over 70,000 uniformly processed human RNA-seq samples spanning TCGA and SRA, including GTEx. The processed data can be accessed via the recount2 website and the `recount` Bioconductor package. This workflow explains in detail how to use the `recount` package and how to integrate it with other Bioconductor packages for several analyses that can be carried out with the recount2 resource. In particular, we describe how the coverage count matrices were computed in recount2 as well as different ways of obtaining public metadata, which can facilitate downstream analyses. Step-by-step directions show how to do a gene-level differential expression analysis, visualize base-level genome coverage data, and perform an analyses at multiple feature levels. This workflow thus provides further information to understand the data in recount2 and a compendium of R code to use the data.
 bibliography: recount-workflow.bib
-output: BiocWorkflowTools::f1000_article
+output:
+  BiocStyle::html_document:
+    self_contained: yes
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    code_folding: show
 csl: f1000-research.csl
 
 vignette: >
@@ -31,7 +37,12 @@ vignette: >
 
 
 ```{r bioc_setup, include = FALSE}
-on.bioc <- TRUE
+## Changing the YAML to the following changes the output to 'latex'
+## output:
+##   BiocWorkflowTools::f1000_article
+## More at:
+## https://stackoverflow.com/questions/35144130/in-knitr-how-can-i-test-for-if-the-output-will-be-pdf-or-word
+on.bioc <- knitr::opts_knit$get("rmarkdown.pandoc.to") != 'latex'
 knitr::opts_chunk$set(fig.path = "")
 ```
 

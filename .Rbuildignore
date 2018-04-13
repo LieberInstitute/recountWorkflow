@@ -1,13 +1,3 @@
 ^vignettes/SRP045638/*\.Rdata$
-^.git$
-^.*\.toc$
-^.*\.aux$
-^.*\.log$
-^.*\.out$
-^.*\.tex$
-^.*\.gz$
-^.*\.blg$
-^.*\.bbl$
-^.*\.sty$
-^.*\.pdf$
-README.md
+^\.travis\.yml$
+.DS_Store
