@@ -45,6 +45,11 @@ vignette: >
 on.bioc <- knitr::opts_knit$get("rmarkdown.pandoc.to") != 'latex'
 knitr::opts_chunk$set(fig.path = "")
 ```
+**R version**: `r R.version.string`
+
+**Bioconductor version**: `r BiocInstaller::biocVersion()`
+
+**Package**: `r packageVersion("recountWorkflow")`
 
 
 # Introduction
