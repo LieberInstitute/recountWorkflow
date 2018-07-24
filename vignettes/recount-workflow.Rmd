@@ -82,8 +82,8 @@ In this workflow we will use several Bioconductor packages. To reproduce the ent
 
 ```{r "install", eval = FALSE}
 ## Install packages from Bioconductor
-source("https://bioconductor.org/biocLite.R")
-biocLite(c("recount", "GenomicRanges", "limma", "edgeR", "DESeq2",
+install.packages("BiocManager")
+BiocManager::install(c("recount", "GenomicRanges", "limma", "edgeR", "DESeq2",
     "regionReport", "clusterProfiler", "org.Hs.eg.db", "gplots",
     "derfinder", "rtracklayer", "GenomicFeatures", "bumphunter",
     "derfinderPlot", "devtools"))

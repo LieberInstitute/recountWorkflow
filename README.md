@@ -11,9 +11,9 @@ The workflow is available on Bioconductor at https://www.bioconductor.org/help/w
 All the packages used in this workflow get installed by installing the workflow corresponding package:
 
 ```{r}
-## You will need R 3.4.x or newer
-source("https://bioconductor.org/biocLite.R")
-biocLite("recountWorkflow")
+## You will need R 3.5.x or newer
+install.packages("BiocManager")
+BiocManager::install("recountWorkflow")
 ```
 
 ## Feedback and bug reports
