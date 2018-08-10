@@ -47,7 +47,7 @@ knitr::opts_chunk$set(fig.path = "")
 ```
 **R version**: `r R.version.string`
 
-**Bioconductor version**: `r BiocInstaller::biocVersion()`
+**Bioconductor version**: `r BiocManager::version()`
 
 **Package**: `r packageVersion("recountWorkflow")`
 
