@@ -86,7 +86,7 @@ install.packages("BiocManager")
 BiocManager::install(c("recount", "GenomicRanges", "limma", "edgeR", "DESeq2",
     "regionReport", "clusterProfiler", "org.Hs.eg.db", "gplots",
     "derfinder", "rtracklayer", "GenomicFeatures", "bumphunter",
-    "derfinderPlot", "devtools"))
+    "derfinderPlot", "sessioninfo"))
 ```
 
 Once they are installed, load all the packages with the following code.
@@ -106,7 +106,7 @@ library("rtracklayer")
 library("GenomicFeatures")
 library("bumphunter")
 library("derfinderPlot")
-library("devtools")
+library("sessioninfo")
 ```
 
 ## Coverage counts provided by recount2
@@ -926,7 +926,7 @@ pandoc_version()
 round(proc.time()[3] / 60, 1)
 
 options(width = 100)
-library("devtools")
+library("sessioninfo")
 session_info()
 ```
 
