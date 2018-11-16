@@ -821,8 +821,8 @@ To create a TxDb object for Gencode v25, first we need to import the data. Since
 ## Import the Gencode v25 hg38 gene annotation
 library("rtracklayer")
 gencode_v25_hg38 <- import(paste0(
-    "ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/",
-    "gencode.v25.annotation.gtf.gz"))
+    "ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human",
+    "/release_25/gencode.v25.annotation.gff3.gz"))
             
 ## Keep only the chr21 info
 gencode_v25_hg38 <- keepSeqlevels(gencode_v25_hg38, "chr21",
