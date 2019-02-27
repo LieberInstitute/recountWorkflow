@@ -860,7 +860,7 @@ library("bumphunter")
 ann_gencode_v25_hg38 <- annotateTranscripts(gencode_v25_hg38_txdb,
     annotationPackage = "org.Hs.eg.db",
     mappingInfo = list("column" = "ENTREZID", "keytype" = "ENSEMBL",
-    "multiVals" = "first"))
+    "multiVals" = "first"), simplifyGeneID = TRUE)
     
 ## Annotate the regions of interest
 ## Note that we are using the original regions, not the resized ones

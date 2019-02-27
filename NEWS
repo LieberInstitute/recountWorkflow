@@ -1,3 +1,13 @@
+CHANGES IN VERSION 1.7.2
+------------------------
+
+BUG FIXES
+
+    o Fix the call to bumphunter::annotateTranscripts().
+See https://gist.github.com/lcolladotor/196dabeb1ac628c35656bfa94b5d9577
+for more details.
+
+
 CHANGES IN VERSION 1.7.1
 ------------------------
 
