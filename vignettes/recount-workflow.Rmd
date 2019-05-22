@@ -5,7 +5,7 @@ author:
     affiliation:
     - &libd Lieber Institute for Brain Development, Johns Hopkins Medical Campus, Baltimore, MD, 21205, USA
     - &ccb Center for Computational Biology, Johns Hopkins University, Baltimore, MD, 21205, USA
-    email: leo.collado@libd.org
+    email: lcolladotor@gmail.com
   - name: Abhinav Nellore
     affiliation:
     - Department of Biomedical Engineering, Oregon Health and Science University, Portland, OR, 97239, USA
