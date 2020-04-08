@@ -1,3 +1,5 @@
 ^vignettes/SRP045638/*\.Rdata$
 ^\.travis\.yml$
 .DS_Store
+^.*\.Rproj$
+^\.Rproj\.user$

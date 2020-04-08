@@ -1,3 +1,18 @@
+CHANGES IN VERSION 1.11.1
+-------------------------
+
+NEW FEATURES
+
+    o Piggyback on GenomicState now that this package produces all the pieces
+        needed for making the ER plots.
+    o Potentially everything works on Windows now that rtracklayer::import.bw()
+        seems to work there. But I haven't tested it.
+
+BUG FIXES
+
+    o Update SRARunTable.txt reading code since they changed the format on
+        delivered by SRA. Adjust variables accordingly.
+
 CHANGES IN VERSION 1.7.2
 ------------------------
 
