@@ -372,18 +372,19 @@ sra <- read.csv(file.path("SRP045638", "SraRunTable.txt"),
 ## Explore it
 head(sra)
 
-## We will remove some trailing '_s' from the variable names
-colnames(sra) <- tolower(gsub("_s$", "", colnames(sra)))
+## We will all column names lower case
+colnames(sra) <- tolower(colnames(sra))
 
 ## Choose some variables we want to add
 sra_vars <- c("sex", "race", "rin", "age", "isolate", "disease",
     "tissue")
+stopifnot(all(sra_vars %in% colnames(sra)))
 
 ## Re-organize the SRA table based on the SRA Run IDs we have
 sra <- sra[match(colData(rse_gene)$run, sra$run), ]
 
 ## Double check the order
-identical(colData(rse_gene)$run, as.character(sra$run))
+stopifnot(identical(colData(rse_gene)$run, as.character(sra$run)))
 
 ## Append the variables of interest
 colData(rse_gene) <- cbind(colData(rse_gene), sra[, sra_vars])
@@ -464,7 +465,7 @@ plotMDS(dge, labels = substr(colData(rse_gene_scaled)$prenatal, 1, 2) )
 
 ```{r "limmade2", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Multi-dimensional scaling plot of the gene-level data by sex."}
 plotMDS(dge, labels = substr(colData(rse_gene_scaled)$sex, 1, 1) )
-tapply(colData(rse_gene_scaled)$RIN, colData(rse_gene_scaled)$prenatal,
+tapply(colData(rse_gene_scaled)$rin, colData(rse_gene_scaled)$prenatal,
     summary)
 
 ## Specify our design matrix
@@ -831,7 +832,7 @@ Now that we have a TxDb object for Gencode v25 on hg38 coordinates, we can use `
 
 ```{r "bump_ann", eval = .Platform$OS.type != "windows"}
 ## Download annotated transcripts for gencode v25
-<- GenomicStateHub(version = '25', genome = 'hg38',
+ann_gencode_v25_hg38 <- GenomicStateHub(version = '25', genome = 'hg38',
     filetype = 'AnnotatedGenes')[[1]]
     
 ## Annotate the regions of interest

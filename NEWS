@@ -1,3 +1,12 @@
+CHANGES IN VERSION 1.11.2
+-------------------------
+
+BUG FIXES
+
+    o Fix the spelling of RIN to rin now that all SRA columns are in lower case.
+    o Fix the DESCRIPTION file (had a missing comma).
+
+
 CHANGES IN VERSION 1.11.1
 -------------------------
 
