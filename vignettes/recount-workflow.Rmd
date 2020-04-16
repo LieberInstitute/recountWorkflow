@@ -372,7 +372,7 @@ sra <- read.csv(file.path("SRP045638", "SraRunTable.txt"),
 ## Explore it
 head(sra)
 
-## We will all column names lower case
+## Set all column names in lower case
 colnames(sra) <- tolower(colnames(sra))
 
 ## Choose some variables we want to add
