@@ -66,26 +66,41 @@ R. Please run this yourself to check for any updates on how to cite
 
 ``` r
 print(citation('recountWorkflow'), bibtex = TRUE)
-#> Warning in citation("recountWorkflow"): no date field in DESCRIPTION file of
-#> package 'recountWorkflow'
-#> Warning in citation("recountWorkflow"): could not determine year for
-#> 'recountWorkflow' from package DESCRIPTION file
 #> 
-#> To cite package 'recountWorkflow' in publications use:
+#> Collado-Torres L, Nellore A, Jaffe AE (2017). "recount workflow:
+#> Accessing over 70,000 human RNA-seq samples with Bioconductor [version
+#> 1; referees: 1 approved, 2 approved with reservations]."
+#> _F1000Research_. doi: 10.12688/f1000research.12223.1 (URL:
+#> https://doi.org/10.12688/f1000research.12223.1), <URL:
+#> https://f1000research.com/articles/6-1558/v1>.
 #> 
-#>   Leonardo Collado-Torres (NA). recountWorkflow: recount workflow:
-#>   accessing over 70,000 human RNA-seq samples with Bioconductor. R
-#>   package version 1.11.2.
-#>   https://github.com/LieberInstitute/recountWorkflow
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Article{,
+#>     title = {recount workflow: Accessing over 70,000 human RNA-seq samples with Bioconductor [version 1; referees: 1 approved, 2 approved with reservations]},
+#>     author = {Leonardo Collado-Torres and Abhinav Nellore and Andrew E. Jaffe},
+#>     year = {2017},
+#>     journal = {F1000Research},
+#>     doi = {10.12688/f1000research.12223.1},
+#>     url = {https://f1000research.com/articles/6-1558/v1},
+#>   }
+#> 
+#> Collado-Torres L, Nellore A, Jaffe AE (2020). _recount workflow:
+#> accessing over 70,000 human RNA-seq samples with Bioconductor_. doi:
+#> 10.18129/B9.bioc.recountWorkflow (URL:
+#> https://doi.org/10.18129/B9.bioc.recountWorkflow),
+#> https://github.com/LieberInstitute/recountWorkflow - R package version
+#> 1.11.3, <URL: http://www.bioconductor.org/packages/recountWorkflow>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
-#>     title = {recountWorkflow: recount workflow: accessing over 70,000 human RNA-seq samples with
-#> Bioconductor},
-#>     author = {Leonardo Collado-Torres},
-#>     note = {R package version 1.11.2},
-#>     url = {https://github.com/LieberInstitute/recountWorkflow},
+#>     title = {recount workflow: accessing over 70,000 human RNA-seq samples with Bioconductor},
+#>     author = {Leonardo Collado-Torres and Abhinav Nellore and Andrew E. Jaffe},
+#>     year = {2020},
+#>     url = {http://www.bioconductor.org/packages/recountWorkflow},
+#>     note = {https://github.com/LieberInstitute/recountWorkflow - R package version 1.11.3},
+#>     doi = {10.18129/B9.bioc.recountWorkflow},
 #>   }
 ```
 
