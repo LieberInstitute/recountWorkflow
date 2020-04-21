@@ -10,7 +10,7 @@ system("echo dev >> .Rbuildignore")
 unlink(".travis.yml")
 
 ## Update package doc
-unlink(dir('R', '-package.R$', full.names = TRUE))
+unlink(dir("R", "-package.R$", full.names = TRUE))
 usethis::use_package_doc()
 
 ## GitHub tests

@@ -42,7 +42,7 @@ vignette: >
 ##   BiocWorkflowTools::f1000_article
 ## More at:
 ## https://stackoverflow.com/questions/35144130/in-knitr-how-can-i-test-for-if-the-output-will-be-pdf-or-word
-on.bioc <- knitr::opts_knit$get("rmarkdown.pandoc.to") != 'latex'
+on.bioc <- knitr::opts_knit$get("rmarkdown.pandoc.to") != "latex"
 knitr::opts_chunk$set(fig.path = "")
 ```
 **R version**: `r R.version.string`
@@ -82,11 +82,14 @@ In this workflow we will use several Bioconductor packages. To reproduce the ent
 
 ```{r "install", eval = FALSE}
 ## Install packages from Bioconductor
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install(c("recount", "GenomicRanges", "limma", "edgeR", "DESeq2",
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+      install.packages("BiocManager")
+  }
+BiocManager::install(c(
+    "recount", "GenomicRanges", "limma", "edgeR", "DESeq2",
     "regionReport", "clusterProfiler", "org.Hs.eg.db", "gplots",
-    "derfinder", "GenomicState", "bumphunter", "derfinderPlot", "sessioninfo"))
+    "derfinder", "GenomicState", "bumphunter", "derfinderPlot", "sessioninfo"
+))
 ```
 
 Once they are installed, load all the packages with the following code.
@@ -178,7 +181,7 @@ From Figure \@ref(fig:Figure4) we know that Rail-RNA soft clipped some reads, so
 library("GenomicRanges")
 reads <- GRanges("seq", IRanges(
     start = rep(
-        c(1, 2, 3, 4, 5, 7, 8, 9, 10, 13, 14), 
+        c(1, 2, 3, 4, 5, 7, 8, 9, 10, 13, 14),
         c(3, 1, 2, 1, 2, 1, 2, 1, 2, 4, 1)
     ), width = rep(
         c(1, 3, 2, 3, 1, 2, 1, 3, 2, 3, 2, 1, 3),
@@ -196,13 +199,18 @@ sum(cov)
 ## Code for reproducing the bottom portion of Figure 8.
 pdf("base_pair_coverage.pdf", width = 20)
 par(mar = c(5, 6, 4, 2) + 0.1)
-plot(cov, type = "o", col = "violetred1", lwd = 10, ylim = c(0, 5),
+plot(cov,
+    type = "o", col = "violetred1", lwd = 10, ylim = c(0, 5),
     xlab = "Genome", ylab = "Coverage", cex.axis = 2, cex.lab = 3,
-    bty = "n")
+    bty = "n"
+)
 polygon(c(1, seq_len(length(cov)), length(cov)), c(0, cov, 0),
-    border = NA, density = -1, col = "light blue")
-points(seq_len(length(cov)), cov, col = "violetred1", type = "o",
-    lwd = 10)
+    border = NA, density = -1, col = "light blue"
+)
+points(seq_len(length(cov)), cov,
+    col = "violetred1", type = "o",
+    lwd = 10
+)
 dev.off()
 ```
 
@@ -250,7 +258,7 @@ library("recount")
 abstract_search("human brain development by age")
 
 ## Download the data if it is not there
-if(!file.exists(file.path("SRP045638", "rse_gene.Rdata"))) {
+if (!file.exists(file.path("SRP045638", "rse_gene.Rdata"))) {
     download_study("SRP045638", type = "rse-gene")
 }
 
@@ -282,8 +290,10 @@ Several of these technical variables include the number of reads as reported by 
 ```{r "explore colData"}
 ## Input reads: number reported by SRA might be larger than number
 ## of reads Rail-RNA downloaded
-colData(rse_gene)[,
-    c("read_count_as_reported_by_sra", "reads_downloaded")]
+colData(rse_gene)[
+    ,
+    c("read_count_as_reported_by_sra", "reads_downloaded")
+]
 summary(
     colData(rse_gene)$proportion_of_reads_reported_by_sra_downloaded
 )
@@ -293,8 +303,10 @@ head(colData(rse_gene)$auc)
 
 ## Alternatively, scale_scounts() can use the number of mapped reads
 ## and other information
-colData(rse_gene)[, c("mapped_read_count", "paired_end",
-    "avg_read_length")]
+colData(rse_gene)[, c(
+    "mapped_read_count", "paired_end",
+    "avg_read_length"
+)]
 ```
 
 #### Biological information
@@ -326,7 +338,7 @@ colData(rse_gene_SRP009615)$characteristics[[11]]
 target <- sapply(colData(rse_gene_SRP009615)$characteristics, "[", 2)
 target
 
-## Build a useful factor vector, set the reference level and append the result 
+## Build a useful factor vector, set the reference level and append the result
 ## to the colData() slot
 target_factor <- sapply(strsplit(target, "targeting "), "[", 2)
 target_factor[is.na(target_factor)] <- "none"
@@ -360,14 +372,15 @@ Ultimately, more sample metadata information could be available elsewhere, which
 For our example use case, project SRP045638 has a few extra biologically relevant variables via the SRA Run selector https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=SRP045638. We can download that information into text file named `SraRunTable.txt` by default, then load it into R, sort it appropriately and then append it to the `colData()` slot. Below we do so for the SRP045638 project.
 
 ```{r "sra_run_table"}
-## Save the information from 
+## Save the information from
 ## https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=SRP045638
 ## to a table. We saved the file as SRP045638/SraRunTable.txt.
 file.exists(file.path("SRP045638", "SraRunTable.txt"))
 
 ## Read the table
 sra <- read.csv(file.path("SRP045638", "SraRunTable.txt"),
-    header = TRUE)
+    header = TRUE
+)
 
 ## Explore it
 head(sra)
@@ -376,8 +389,10 @@ head(sra)
 colnames(sra) <- tolower(colnames(sra))
 
 ## Choose some variables we want to add
-sra_vars <- c("sex", "race", "rin", "age", "isolate", "disease",
-    "tissue")
+sra_vars <- c(
+    "sex", "race", "rin", "age", "isolate", "disease",
+    "tissue"
+)
 stopifnot(all(sra_vars %in% colnames(sra)))
 
 ## Re-organize the SRA table based on the SRA Run IDs we have
@@ -399,8 +414,10 @@ colData(rse_gene)[, 34:ncol(colData(rse_gene))]
 Since we have the predicted sex as well as the reported sex via the SRA Run Selector, we can check whether they match.
 
 ```{r "sex preds"}
-table("Predicted" = colData(rse_gene)$predicted_sex,
-    "Observed" = colData(rse_gene)$sex)
+table(
+    "Predicted" = colData(rse_gene)$predicted_sex,
+    "Observed" = colData(rse_gene)$sex
+)
 ```
 
 ### DE setup
@@ -409,10 +426,13 @@ Now that we have all the metadata available we can perform a DE analysis. The or
 
 ```{r "age_groups"}
 ## Create the original 6 age groups
-age_bins <- cut( colData(rse_gene)$age, c(-1, 0, 1, 10, 20, 50, Inf),
-    include.lowest=TRUE )
-levels( age_bins ) <- c("prenatal", "infant", "child", "teen", "adult",
-    "late life")
+age_bins <- cut(colData(rse_gene)$age, c(-1, 0, 1, 10, 20, 50, Inf),
+    include.lowest = TRUE
+)
+levels(age_bins) <- c(
+    "prenatal", "infant", "child", "teen", "adult",
+    "late life"
+)
 colData(rse_gene)$age_group <- age_bins
 ```
 
@@ -422,8 +442,10 @@ Most of the DE signal from the original study was between the prenatal and postn
 ## Create prenatal factor
 colData(rse_gene)$prenatal <- factor(
     ifelse(colData(rse_gene)$age_group == "prenatal", "prenatal",
-        "postnatal"),
-    levels = c("prenatal", "postnatal"))
+        "postnatal"
+    ),
+    levels = c("prenatal", "postnatal")
+)
 ```
 
 As we saw earlier in Figure \@ref(fig:Figure9), it is important to scale the coverage counts to read counts. To highlight the fact that we scaled the counts, we will use a new object name and delete the previous one. However, in practice we would simply overwrite the `rse` object with the output of `scale_counts(rse)`.
@@ -460,17 +482,21 @@ dge <- DGEList(counts = counts[filter, ])
 dge <- calcNormFactors(dge)
 
 ## Explore the data
-plotMDS(dge, labels = substr(colData(rse_gene_scaled)$prenatal, 1, 2) )
+plotMDS(dge, labels = substr(colData(rse_gene_scaled)$prenatal, 1, 2))
 ```
 
 ```{r "limmade2", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Multi-dimensional scaling plot of the gene-level data by sex."}
-plotMDS(dge, labels = substr(colData(rse_gene_scaled)$sex, 1, 1) )
-tapply(colData(rse_gene_scaled)$rin, colData(rse_gene_scaled)$prenatal,
-    summary)
+plotMDS(dge, labels = substr(colData(rse_gene_scaled)$sex, 1, 1))
+tapply(
+    colData(rse_gene_scaled)$rin, colData(rse_gene_scaled)$prenatal,
+    summary
+)
 
 ## Specify our design matrix
-design <- with(colData(rse_gene_scaled),
-    model.matrix(~ sex + rin + prenatal))
+design <- with(
+    colData(rse_gene_scaled),
+    model.matrix(~ sex + rin + prenatal)
+)
 ```
 
 ```{r "limmade3", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "voom mean-variance plot of the gene-level data."}
@@ -502,8 +528,10 @@ Now that we have the DE results, we can use some of the tools with the biocView 
 
 ```{r "report_setup"}
 ## Extract data from limma-voom results
-top <- topTable(fit, number = Inf, sort.by = "none",
-    coef = "prenatalpostnatal")
+top <- topTable(fit,
+    number = Inf, sort.by = "none",
+    coef = "prenatalpostnatal"
+)
 
 ## Build a DESeqDataSet with the count data and model we used
 library("DESeq2")
@@ -515,10 +543,12 @@ rownames(dds) <- gsub("\\..*", "", rownames(dds))
 ## Build a DESeqResults object with the relevant information
 ## Note that we are transforming the baseMean so it will look ok
 ## with DESeq2's plotting functions.
-limma_res <- DESeqResults(DataFrame(pvalue = top[, "P.Value"], 
-    log2FoldChange = top[, "logFC"], 
+limma_res <- DESeqResults(DataFrame(
+    pvalue = top[, "P.Value"],
+    log2FoldChange = top[, "logFC"],
     baseMean = exp(top[, "AveExpr"]),
-    padj = top[, "adj.P.Val"]))
+    padj = top[, "adj.P.Val"]
+))
 rownames(limma_res) <- rownames(dds)
 
 ## Specify FDR cutoff to use
@@ -529,8 +559,10 @@ limma_res$symbol <- rowRanges(rse_gene_scaled)$symbol[filter]
 
 ## Some extra information used by the report function
 mcols(dds) <- limma_res
-mcols(mcols(dds)) <- DataFrame(type = "results",
-    description = "manual incomplete conversion from limma-voom to DESeq2")
+mcols(mcols(dds)) <- DataFrame(
+    type = "results",
+    description = "manual incomplete conversion from limma-voom to DESeq2"
+)
 ```
 
 Having converted our `limma-voom` results to `DESeq2` results, we can now create the report, which should open automatically in a browser.
@@ -542,7 +574,8 @@ report <- DESeq2Report(dds,
     project = "SRP045638 gene results with limma-voom",
     output = "gene_report", outdir = "SRP045638",
     intgroup = c("prenatal", "sex"), res = limma_res,
-    software = "limma")
+    software = "limma"
+)
 ```
 
 If the report doesn't open automatically, we can open it with `browseURL()`. A pre-computed version is available as Supplementary File 1.
@@ -569,7 +602,8 @@ enrich_go <- enrichGO(
     gene = rownames(limma_res)[limma_res$padj < 0.001],
     OrgDb = org.Hs.eg.db, keyType = "ENSEMBL", ont = "BP",
     pAdjustMethod = "BH", pvalueCutoff = 0.01, qvalueCutoff = 0.05,
-    universe = rownames(limma_res))
+    universe = rownames(limma_res)
+)
 
 ## Visualize enrichment results
 dotplot(enrich_go, font.size = 7)
@@ -589,7 +623,7 @@ Below we repeat the gene-level analysis for the disjoint exon data. We first dow
 
 ```{r "exondeanalysis1", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "voom mean-variance plot of the exon-level data."}
 ## Download the data if it is not there
-if(!file.exists(file.path("SRP045638", "rse_exon.Rdata"))) {
+if (!file.exists(file.path("SRP045638", "rse_exon.Rdata"))) {
     download_study("SRP045638", type = "rse-exon")
 }
 
@@ -609,7 +643,8 @@ round(table(filter_exon) / length(filter_exon) * 100, 2)
 
 ## Build DGEList object
 dge_exon <- DGEList(
-    counts = assays(rse_exon_scaled)$counts[filter_exon, ])
+    counts = assays(rse_exon_scaled)$counts[filter_exon, ]
+)
 
 ## Calculate normalization factors
 dge_exon <- calcNormFactors(dge_exon)
@@ -627,8 +662,10 @@ fit_exon <- eBayes(fit_exon)
 limma::volcanoplot(fit_exon, coef = 4)
 
 ## Get p-values and other statistics
-top_exon <- topTable(fit_exon, number = Inf, sort.by = "none",
-    coef = "prenatalpostnatal")
+top_exon <- topTable(fit_exon,
+    number = Inf, sort.by = "none",
+    coef = "prenatalpostnatal"
+)
 table(top_exon$adj.P.Val < 0.001)
 ```
 
@@ -638,14 +675,17 @@ Just like at the gene-level, we see many exons differentially expressed between 
 ## Get the gene IDs for genes that are DE at the gene-level or that have at
 ## least one exon with DE signal.
 genes_w_de_exon <- unique(
-    rownames(rse_exon_scaled)[top_exon$adj.P.Val < 0.001])
+    rownames(rse_exon_scaled)[top_exon$adj.P.Val < 0.001]
+)
 genes_de <- rownames(rse_gene_scaled)[
-    which(filter)[top$adj.P.Val < 0.001]]
+    which(filter)[top$adj.P.Val < 0.001]
+]
 
 ## Make a venn diagram
 library("gplots")
 vinfo <- venn(list("genes" = genes_de, "exons" = genes_w_de_exon),
-    names = c("genes", "exons"), show.plot = FALSE) 
+    names = c("genes", "exons"), show.plot = FALSE
+)
 plot(vinfo) +
     title("Genes/exons with DE signal")
 ```
@@ -656,21 +696,24 @@ This was just a quick example of how we can perform DE analyses at the gene and 
 
 ```{r "geneexonmatch", out.width="100%", fig.align="center", fig.cap = "Log fold change (FC) for DE genes compared against the most extreme exon log FC among exons that are DE for the given gene."}
 ## Keep only the DE exons that are from a gene that is also DE
-top_exon_de <- top_exon[top_exon$adj.P.Val < 0.001 & 
+top_exon_de <- top_exon[top_exon$adj.P.Val < 0.001 &
     top_exon$ID %in% attr(vinfo, "intersections")[["genes:exons"]], ]
-    
+
 ## Find the fold change that is the most extreme among the DE exons of a gene
-exon_max_fc <- tapply(top_exon_de$logFC, top_exon_de$ID, function(x) { 
-    x[which.max(abs(x))] })
+exon_max_fc <- tapply(top_exon_de$logFC, top_exon_de$ID, function(x) {
+    x[which.max(abs(x))]
+})
 
 ## Keep only the DE genes that match the previous selection
 top_gene_de <- top[match(names(exon_max_fc), rownames(top)), ]
 
 ## Make the plot
-plot(top_gene_de$logFC, exon_max_fc, pch = 20, col = adjustcolor("black", 1/5),
+plot(top_gene_de$logFC, exon_max_fc,
+    pch = 20, col = adjustcolor("black", 1 / 5),
     ylab = "Most extreme exon log FC",
     xlab = "Gene log FC",
-    main = "DE genes with at least one DE exon")
+    main = "DE genes with at least one DE exon"
+)
 abline(a = 0, b = 1, col = "red")
 abline(h = 0, col = "grey80")
 abline(v = 0, col = "grey80")
@@ -688,9 +731,11 @@ For illustrative purposes, we will use the data from chromosome 21 for the SRP04
 
 ```{r "identify regions", eval = .Platform$OS.type != "windows"}
 ## Define expressed regions for study SRP045638, only for chromosome 21
-regions <- expressed_regions("SRP045638", "chr21", cutoff = 5L,
-    maxClusterGap = 3000L)
-    
+regions <- expressed_regions("SRP045638", "chr21",
+    cutoff = 5L,
+    maxClusterGap = 3000L
+)
+
 ## Explore the resulting expressed regions
 regions
 summary(width(regions))
@@ -707,7 +752,8 @@ Now that we have a set of regions to work with, we proceed to build a _RangedSum
 ## Compute coverage matrix for study SRP045638, only for chromosome 21
 ## Takes about 4 minutes
 rse_er <- coverage_matrix("SRP045638", "chr21", regions,
-    chunksize = 2000, verboseLoad = FALSE, scale = FALSE)
+    chunksize = 2000, verboseLoad = FALSE, scale = FALSE
+)
 
 ## Use the expanded metadata we built for the gene model
 colData(rse_er) <- colData(rse_gene_scaled)
@@ -729,11 +775,11 @@ dge_er <- DGEList(counts = assays(rse_er_scaled)$counts)
 dge_er <- calcNormFactors(dge_er)
 
 ## Explore the data
-plotMDS(dge_er, labels = substr(colData(rse_er_scaled)$prenatal, 1, 2) )
+plotMDS(dge_er, labels = substr(colData(rse_er_scaled)$prenatal, 1, 2))
 ```
 
 ```{r "erdeanalysis2", eval = .Platform$OS.type != "windows", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "Multi-dimensional scaling plot of the expressed regions level data by sex."}
-plotMDS(dge_er, labels = substr(colData(rse_er_scaled)$sex, 1, 1) )
+plotMDS(dge_er, labels = substr(colData(rse_er_scaled)$sex, 1, 1))
 ```
 
 ```{r "erdeanalysis3", eval = .Platform$OS.type != "windows", out.width=ifelse(on.bioc, "100%", "70%"), fig.align="center", fig.cap = "voom mean-variance plot of the expressed regions level data."}
@@ -750,8 +796,10 @@ fit_er <- eBayes(fit_er)
 limma::volcanoplot(fit_er, coef = 4)
 
 ## Number of DERs
-top_er <- topTable(fit_er, number = Inf, sort.by = "none",
-    coef = "prenatalpostnatal")
+top_er <- topTable(fit_er,
+    number = Inf, sort.by = "none",
+    coef = "prenatalpostnatal"
+)
 table(top_er$adj.P.Val < 0.001)
 ```
 
@@ -783,12 +831,16 @@ First, we need to get the list of URLs for the bigWig files. We can either manua
 ## /bw/
 ## sample run id
 ## .bw
-bws <- paste0("http://duffel.rail.bio/recount/SRP045638/bw/",
-    colData(rse_er_scaled)$bigwig_file)
+bws <- paste0(
+    "http://duffel.rail.bio/recount/SRP045638/bw/",
+    colData(rse_er_scaled)$bigwig_file
+)
 
 ## Note that they are also present in the recount_url data.frame
-bws <- recount_url$url[match(colData(rse_er_scaled)$bigwig_file,
-    recount_url$file_name)]
+bws <- recount_url$url[match(
+    colData(rse_er_scaled)$bigwig_file,
+    recount_url$file_name
+)]
 
 ## Use the sample run IDs as the sample names
 names(bws) <- colData(rse_er_scaled)$run
@@ -799,7 +851,9 @@ We visualize the DERs using `derfinderPlot`, similar to what was done in the ori
 ```{r "add_padding", eval = .Platform$OS.type != "windows"}
 ## Add 100 bp padding on each side
 regions_resized <- resize(regions_by_padj[1:10],
-    width(regions_by_padj[1:10]) + 200, fix = "center")
+    width(regions_by_padj[1:10]) + 200,
+    fix = "center"
+)
 ```
 
 Next, we obtain the base-pair coverage data for each DER and scale the data to a library size of 40 million 100 base-pair reads, using the coverage AUC information we have in the metadata.
@@ -807,10 +861,12 @@ Next, we obtain the base-pair coverage data for each DER and scale the data to a
 ```{r "regionCov", eval = .Platform$OS.type != "windows"}
 ## Get the bp coverage data for the plots
 library("derfinder")
-regionCov <- getRegionCoverage(regions = regions_resized, files = bws,
+regionCov <- getRegionCoverage(
+    regions = regions_resized, files = bws,
     targetSize = 40 * 1e6 * 100,
     totalMapped = colData(rse_er_scaled)$auc,
-    verbose = FALSE)
+    verbose = FALSE
+)
 ```
 
 The function `plotRegionCoverage()` requires several pieces of annotation information for the plots that use a TxDb object. For recount2 we used Gencode v25 hg38's annotation, which means that we need to process it manually instead of using a pre-computed TxDb package. This is where the `GenomicState` [@GenomicState] package comes into play as it has done the heavy lifting for us already.
@@ -821,8 +877,10 @@ The function `plotRegionCoverage()` requires several pieces of annotation inform
 library("GenomicState")
 
 ## Create the TxDb object
-gencode_v25_hg38_txdb <- GenomicStateHub(version = '25', genome = 'hg38',
-    filetype = 'TxDb')[[1]]
+gencode_v25_hg38_txdb <- GenomicStateHub(
+    version = "25", genome = "hg38",
+    filetype = "TxDb"
+)[[1]]
 
 ## Explore the TxDb object
 gencode_v25_hg38_txdb
@@ -832,9 +890,11 @@ Now that we have a TxDb object for Gencode v25 on hg38 coordinates, we can use `
 
 ```{r "bump_ann", eval = .Platform$OS.type != "windows"}
 ## Download annotated transcripts for gencode v25
-ann_gencode_v25_hg38 <- GenomicStateHub(version = '25', genome = 'hg38',
-    filetype = 'AnnotatedGenes')[[1]]
-    
+ann_gencode_v25_hg38 <- GenomicStateHub(
+    version = "25", genome = "hg38",
+    filetype = "AnnotatedGenes"
+)[[1]]
+
 ## Annotate the regions of interest
 ## Note that we are using the original regions, not the resized ones
 library("bumphunter")
@@ -845,36 +905,44 @@ The final piece we need to run `plotRegionCoverage()` is information about which
 
 ```{r "make_gs", eval = .Platform$OS.type != "windows"}
 ## Download the genomic state object for Gencode v25
-gs_gencode_v25_hg38 <- GenomicStateHub(version = '25', genome = 'hg38',
-    filetype = 'GenomicState')[[1]]
-    
+gs_gencode_v25_hg38 <- GenomicStateHub(
+    version = "25", genome = "hg38",
+    filetype = "GenomicState"
+)[[1]]
+
 ## Annotate the original regions
-regions_ann <- annotateRegions(regions_resized,
-    gs_gencode_v25_hg38$fullGenome)
+regions_ann <- annotateRegions(
+    regions_resized,
+    gs_gencode_v25_hg38$fullGenome
+)
 ```
 
 We can finally use `plotRegionCoverage()` to visualize the top 10 regions coloring by whether they are prenatal or postnatal samples. Known exons are shown in dark blue, introns in light blue.
 
 ```{r "regionplots", eval = .Platform$OS.type != "windows", out.width=ifelse(on.bioc, "100%", "75%"), fig.align="center", fig.cap = 'Base-pair resolution plot of differentially expressed region 2.'}
 library("derfinderPlot")
-pdf('region_plots.pdf')
-plotRegionCoverage(regions = regions_resized, regionCoverage = regionCov, 
-   groupInfo = colData(rse_er_scaled)$prenatal,
-   nearestAnnotation = nearest_ann, 
-   annotatedRegions = regions_ann,
-   txdb = gencode_v25_hg38_txdb,
-   scalefac = 1, ylab = "Coverage (RP40M, 100bp)",
-   ask = FALSE, verbose = FALSE)
+pdf("region_plots.pdf")
+plotRegionCoverage(
+    regions = regions_resized, regionCoverage = regionCov,
+    groupInfo = colData(rse_er_scaled)$prenatal,
+    nearestAnnotation = nearest_ann,
+    annotatedRegions = regions_ann,
+    txdb = gencode_v25_hg38_txdb,
+    scalefac = 1, ylab = "Coverage (RP40M, 100bp)",
+    ask = FALSE, verbose = FALSE
+)
 dev.off()
 
 ## Visualize DER #2
-plotRegionCoverage(regions = regions_resized, regionCoverage = regionCov, 
-   groupInfo = colData(rse_er_scaled)$prenatal,
-   nearestAnnotation = nearest_ann, 
-   annotatedRegions = regions_ann,
-   txdb = gencode_v25_hg38_txdb,
-   scalefac = 1, ylab = "Coverage (RP40M, 100bp)",
-   ask = FALSE, verbose = FALSE, whichRegions = 2)
+plotRegionCoverage(
+    regions = regions_resized, regionCoverage = regionCov,
+    groupInfo = colData(rse_er_scaled)$prenatal,
+    nearestAnnotation = nearest_ann,
+    annotatedRegions = regions_ann,
+    txdb = gencode_v25_hg38_txdb,
+    scalefac = 1, ylab = "Coverage (RP40M, 100bp)",
+    ask = FALSE, verbose = FALSE, whichRegions = 2
+)
 ```
 
 In plots like Figure \@ref(fig:regionplots) we can see that some DERs match known exons (DERs 2, 8, 10), some are longer than known exons (DERs 1, 7, 9), and others are exon fragments (DERs 3, 4, 5, 6) which could be due to the cutoff used. Note that DER 7 could be shorter than a known exon due to a coverage dip.
