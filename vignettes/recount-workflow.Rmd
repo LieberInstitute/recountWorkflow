@@ -972,6 +972,12 @@ library("sessioninfo")
 session_info()
 ```
 
+```{r clean_up, echo = FALSE}
+## Delete big files
+unlink(dir("SRP045638", "rse_", full.names = TRUE))
+```
+
+
 # Competing interests
 
 No competing interests were disclosed.
