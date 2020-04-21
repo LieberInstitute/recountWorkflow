@@ -1,0 +1,32 @@
+pkgVer <- function(pkg) {
+    if (!exists("meta") || is.null(meta)) meta <- packageDescription(pkg)
+    ver <- meta$Version
+    paste0('https://github.com/LieberInstitute/', pkg, ' - R package version ', ver)
+}
+
+c(
+    bibentry(bibtype="article",
+        title = "recount workflow: Accessing over 70,000 human RNA-seq samples with Bioconductor [version 1; referees: 1 approved, 2 approved with reservations]",
+        author = personList(
+            as.person("Leonardo Collado-Torres"),
+            as.person("Abhinav Nellore"),
+            as.person("Andrew E. Jaffe")
+        ),
+        year = 2017,
+        journal = "F1000Research",
+        doi = "10.12688/f1000research.12223.1",
+        url = "https://f1000research.com/articles/6-1558/v1"
+    ),
+    bibentry(bibtype="manual",
+        title = "recount workflow: accessing over 70,000 human RNA-seq samples with Bioconductor",
+        author = personList(
+            as.person("Leonardo Collado-Torres"),
+            as.person("Abhinav Nellore"),
+            as.person("Andrew E. Jaffe")
+        ),
+        year = format(Sys.Date(), "%Y"),
+        url = "http://www.bioconductor.org/packages/recountWorkflow",
+        note = pkgVer('recountWorkflow'),
+        doi = '10.18129/B9.bioc.recountWorkflow'
+    )
+)
