@@ -90,7 +90,7 @@ print(citation('recountWorkflow'), bibtex = TRUE)
 #> 10.18129/B9.bioc.recountWorkflow (URL:
 #> https://doi.org/10.18129/B9.bioc.recountWorkflow),
 #> https://github.com/LieberInstitute/recountWorkflow - R package version
-#> 1.11.3, <URL: http://www.bioconductor.org/packages/recountWorkflow>.
+#> 1.11.4, <URL: http://www.bioconductor.org/packages/recountWorkflow>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -99,7 +99,7 @@ print(citation('recountWorkflow'), bibtex = TRUE)
 #>     author = {Leonardo Collado-Torres and Abhinav Nellore and Andrew E. Jaffe},
 #>     year = {2020},
 #>     url = {http://www.bioconductor.org/packages/recountWorkflow},
-#>     note = {https://github.com/LieberInstitute/recountWorkflow - R package version 1.11.3},
+#>     note = {https://github.com/LieberInstitute/recountWorkflow - R package version 1.11.4},
 #>     doi = {10.18129/B9.bioc.recountWorkflow},
 #>   }
 ```
