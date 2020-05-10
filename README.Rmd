@@ -18,7 +18,10 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![BioC status](https://master.bioconductor.org/shields/build/release/workflows/recountWorkflow.svg)](http://bioconductor.org/checkResults/release/workflows-LATEST/recountWorkflow/)
+[![BioC dev status](https://master.bioconductor.org/shields/build/devel/workflows/recountWorkflow.svg)](http://bioconductor.org/checkResults/devel/workflows-LATEST/recountWorkflow/)
 [![R build status](https://github.com/LieberInstitute/recountWorkflow/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/LieberInstitute/recountWorkflow/actions)
+[![Support site activity, last 6 months: tagged questions/avg. answers per question/avg. comments per question/accepted answers, or 0 if no tagged posts.](http://www.bioconductor.org/shields/posts/recountWorkflow.svg)](https://support.bioconductor.org/t/recountWorkflow/)
+[![GitHub issues](https://img.shields.io/github/issues/LieberInstitute/recountWorkflow)](https://github.com/LieberInstitute/recountWorkflow/issues)
 <!-- badges: end -->
 
 # recount workflow: accessing over 70,000 human RNA-seq samples with Bioconductor
