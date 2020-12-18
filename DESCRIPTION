@@ -1,8 +1,8 @@
 Package: recountWorkflow
 Title: recount workflow: accessing over 70,000 human RNA-seq samples with
     Bioconductor
-Version: 1.15.0
-Date: 2020-05-10
+Version: 1.15.1
+Date: 2020-12-17
 Authors@R: c(person("Leonardo", "Collado-Torres", role = c("aut", "cre"),
     email = "lcolladotor@gmail.com"), person("Abhinav", "Nellore", role = "ctb",
     email = "anellore@gmail.com"), person(c("Andrew", "E."), "Jaffe",
@@ -44,8 +44,7 @@ Suggests:
     BiocWorkflowTools,
     knitr,
     sessioninfo,
-    rmarkdown,
-    knitcitations
+    rmarkdown
 NeedsCompilation: no
 Workflow: true
 URL: https://github.com/LieberInstitute/recountWorkflow
