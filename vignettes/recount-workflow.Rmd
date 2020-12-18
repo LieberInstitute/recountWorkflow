@@ -42,7 +42,7 @@ vignette: >
 ##   BiocWorkflowTools::f1000_article
 ## More at:
 ## https://stackoverflow.com/questions/35144130/in-knitr-how-can-i-test-for-if-the-output-will-be-pdf-or-word
-on.bioc <- knitr::opts_knit$get("rmarkdown.pandoc.to") != "latex"
+on.bioc <- identical(knitr::opts_knit$get("rmarkdown.pandoc.to"), "latex")
 knitr::opts_chunk$set(fig.path = "")
 ```
 **R version**: `r R.version.string`
