@@ -1,7 +1,7 @@
 Package: recountWorkflow
 Title: recount workflow: accessing over 70,000 human RNA-seq samples with
     Bioconductor
-Version: 1.15.1
+Version: 1.16.0
 Date: 2020-12-17
 Authors@R: c(person("Leonardo", "Collado-Torres", role = c("aut", "cre"),
     email = "lcolladotor@gmail.com"), person("Abhinav", "Nellore", role = "ctb",
