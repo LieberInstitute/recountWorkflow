@@ -177,7 +177,7 @@ jobs:
           install.packages(c("rcmdcheck", "BiocCheck"), repos = gha_repos)
           
           ## Install all the regionReport dependencies
-          remotes::install_github("leekgroup/regionReport", repos  = gha_repos)
+          remotes::install_github("leekgroup/regionReport", repos  = gha_repos, dependencies = TRUE)
 
           ## Pass #1 at installing dependencies
           ## This pass uses AnVIL-powered fast binaries
