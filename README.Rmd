@@ -40,7 +40,7 @@ For more information about `recountWorkflow` check the vignettes [through Biocon
 
 ## Installation instructions
 
-Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `recountWorkflow` using from [Bioconductor](http://bioconductor.org/) the following code:
+Get the latest stable `R` release from [CRAN](http://cran.r-project.org/). Then install `recountWorkflow` from [Bioconductor](http://bioconductor.org/) using the following code:
 
 ```{r 'install', eval = FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE))
