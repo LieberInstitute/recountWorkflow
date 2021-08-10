@@ -75,7 +75,7 @@
 
       
 
-      </header><script src="recount-workflow_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><script src="recount-workflow_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>recount workflow: accessing over 70,000 human RNA-seq samples with Bioconductor</h1>
@@ -327,7 +327,7 @@ Exon boundaries. Reads that go beyond the known exon boundaries can inform us of
 <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"SRP045638"</span>, <span class="st">"rse_gene.Rdata"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/pkg/recount/man/download_study.html" class="external-link">download_study</a></span><span class="op">(</span><span class="st">"SRP045638"</span>, type <span class="op">=</span> <span class="st">"rse-gene"</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<pre><code>## 2021-08-05 19:47:55 downloading file rse_gene.Rdata to SRP045638</code></pre>
+<pre><code>## 2021-08-10 01:28:22 downloading file rse_gene.Rdata to SRP045638</code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Check that the file was downloaded</span>
 <span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"SRP045638"</span>, <span class="st">"rse_gene.Rdata"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -512,7 +512,7 @@ Exon boundaries. Reads that go beyond the known exon boundaries can inform us of
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Add the predictions</span>
 <span class="va">rse_gene</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recount/man/add_predictions.html" class="external-link">add_predictions</a></span><span class="op">(</span><span class="va">rse_gene</span><span class="op">)</span></code></pre></div>
-<pre><code>## 2021-08-05 19:47:58 downloading the predictions to /tmp/RtmpyDvGu8/PredictedPhenotypes_v0.0.06.rda</code></pre>
+<pre><code>## 2021-08-10 01:28:30 downloading the predictions to /tmp/RtmpphzG5H/PredictedPhenotypes_v0.0.06.rda</code></pre>
 <pre><code>## Loading objects:
 ##   PredictedPhenotypes</code></pre>
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
@@ -936,7 +936,7 @@ Biological processes enriched in the DE genes.
 <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"SRP045638"</span>, <span class="st">"rse_exon.Rdata"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/pkg/recount/man/download_study.html" class="external-link">download_study</a></span><span class="op">(</span><span class="st">"SRP045638"</span>, type <span class="op">=</span> <span class="st">"rse-exon"</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<pre><code>## 2021-08-05 19:56:17 downloading file rse_exon.Rdata to SRP045638</code></pre>
+<pre><code>## 2021-08-10 01:39:30 downloading file rse_exon.Rdata to SRP045638</code></pre>
 <div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Load the data</span>
 <span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"SRP045638"</span>, <span class="st">"rse_exon.Rdata"</span><span class="op">)</span><span class="op">)</span>
@@ -1061,14 +1061,14 @@ Log fold change (FC) for DE genes compared against the most extreme exon log FC 
     cutoff <span class="op">=</span> <span class="fl">5L</span>,
     maxClusterGap <span class="op">=</span> <span class="fl">3000L</span>
 <span class="op">)</span></code></pre></div>
-<pre><code>## 2021-08-05 19:58:10 loadCoverage: loading BigWig file http://duffel.rail.bio/recount/SRP045638/bw/mean_SRP045638.bw</code></pre>
-<pre><code>## 2021-08-05 19:58:17 loadCoverage: applying the cutoff to the merged data</code></pre>
-<pre><code>## 2021-08-05 19:58:37 filterData: originally there were 46709983 rows, now there are 46709983 rows. Meaning that 0 percent was filtered.</code></pre>
-<pre><code>## 2021-08-05 19:58:37 findRegions: identifying potential segments</code></pre>
-<pre><code>## 2021-08-05 19:58:37 findRegions: segmenting information</code></pre>
-<pre><code>## 2021-08-05 19:58:37 .getSegmentsRle: segmenting with cutoff(s) 5</code></pre>
-<pre><code>## 2021-08-05 19:58:39 findRegions: identifying candidate regions</code></pre>
-<pre><code>## 2021-08-05 19:58:39 findRegions: identifying region clusters</code></pre>
+<pre><code>## 2021-08-10 01:42:06 loadCoverage: loading BigWig file http://duffel.rail.bio/recount/SRP045638/bw/mean_SRP045638.bw</code></pre>
+<pre><code>## 2021-08-10 01:42:21 loadCoverage: applying the cutoff to the merged data</code></pre>
+<pre><code>## 2021-08-10 01:42:44 filterData: originally there were 46709983 rows, now there are 46709983 rows. Meaning that 0 percent was filtered.</code></pre>
+<pre><code>## 2021-08-10 01:42:44 findRegions: identifying potential segments</code></pre>
+<pre><code>## 2021-08-10 01:42:44 findRegions: segmenting information</code></pre>
+<pre><code>## 2021-08-10 01:42:44 .getSegmentsRle: segmenting with cutoff(s) 5</code></pre>
+<pre><code>## 2021-08-10 01:42:46 findRegions: identifying candidate regions</code></pre>
+<pre><code>## 2021-08-10 01:42:47 findRegions: identifying region clusters</code></pre>
 <div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Explore the resulting expressed regions</span>
 <span class="va">regions</span></code></pre></div>
@@ -1109,7 +1109,7 @@ Log fold change (FC) for DE genes compared against the most extreme exon log FC 
 <span class="va">rse_er</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/recount/man/coverage_matrix.html" class="external-link">coverage_matrix</a></span><span class="op">(</span><span class="st">"SRP045638"</span>, <span class="st">"chr21"</span>, <span class="va">regions</span>,
     chunksize <span class="op">=</span> <span class="fl">2000</span>, verboseLoad <span class="op">=</span> <span class="cn">FALSE</span>, scale <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span></code></pre></div>
-<pre><code>## 2021-08-05 19:58:41 railMatrix: processing regions 1 to 1569</code></pre>
+<pre><code>## 2021-08-10 01:42:49 railMatrix: processing regions 1 to 1569</code></pre>
 <div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Use the expanded metadata we built for the gene model</span>
 <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">rse_er</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">rse_gene_scaled</span><span class="op">)</span>
@@ -1303,8 +1303,8 @@ Volcano plot of the expressed regions level data. Testing for prenatal and postn
     <span class="va">regions_resized</span>,
     <span class="va">gs_gencode_v25_hg38</span><span class="op">$</span><span class="va">fullGenome</span>
 <span class="op">)</span></code></pre></div>
-<pre><code>## 2021-08-05 20:01:32 annotateRegions: counting</code></pre>
-<pre><code>## 2021-08-05 20:01:32 annotateRegions: annotating</code></pre>
+<pre><code>## 2021-08-10 01:49:38 annotateRegions: counting</code></pre>
+<pre><code>## 2021-08-10 01:49:38 annotateRegions: annotating</code></pre>
 <p>We can finally use <code><a href="https://rdrr.io/pkg/derfinderPlot/man/plotRegionCoverage.html" class="external-link">plotRegionCoverage()</a></code> to visualize the top 10 regions coloring by whether they are prenatal or postnatal samples. Known exons are shown in dark blue, introns in light blue.</p>
 <div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/leekgroup/derfinderPlot" class="external-link">"derfinderPlot"</a></span><span class="op">)</span>
@@ -1369,7 +1369,7 @@ Base-pair resolution plot of differentially expressed region 2.
 <code class="sourceCode R"><span class="co">## Time for reproducing this workflow, in minutes</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/proc.time.html" class="external-link">proc.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">/</span> <span class="fl">60</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <pre><code>## elapsed 
-##    14.2</code></pre>
+##      22</code></pre>
 <div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/r-lib/sessioninfo#readme" class="external-link">"sessioninfo"</a></span><span class="op">)</span>
@@ -1384,7 +1384,7 @@ Base-pair resolution plot of differentially expressed region 2.
 ##  collate  en_US.UTF-8                 
 ##  ctype    en_US.UTF-8                 
 ##  tz       UTC                         
-##  date     2021-08-05                  
+##  date     2021-08-10                  
 ## 
 ## ─ Packages ───────────────────────────────────────────────────────────────────────────────────────
 ##  package                * version    date       lib source                                 
@@ -1433,10 +1433,10 @@ Base-pair resolution plot of differentially expressed region 2.
 ##  DEFormats                1.21.0     2021-05-19 [1] Bioconductor                           
 ##  DelayedArray             0.19.1     2021-06-25 [1] Bioconductor                           
 ##  derfinder              * 1.27.0     2021-05-19 [1] Bioconductor                           
-##  derfinderHelper          1.27.0     2021-05-19 [1] Bioconductor                           
-##  derfinderPlot          * 1.27.0     2021-05-19 [1] Bioconductor                           
+##  derfinderHelper          1.27.1     2021-08-05 [1] Bioconductor                           
+##  derfinderPlot          * 1.27.1     2021-08-05 [1] Bioconductor                           
 ##  desc                     1.3.0      2021-03-05 [2] RSPM (R 4.1.0)                         
-##  DESeq2                 * 1.33.2     2021-08-01 [1] Bioconductor                           
+##  DESeq2                 * 1.33.4     2021-08-05 [1] Bioconductor                           
 ##  dichromat                2.0-0      2013-01-24 [1] RSPM (R 4.1.0)                         
 ##  digest                   0.6.27     2020-10-24 [2] RSPM (R 4.1.0)                         
 ##  DO.db                    2.9        2021-07-30 [1] Bioconductor                           
@@ -1512,14 +1512,14 @@ Base-pair resolution plot of differentially expressed region 2.
 ##  latticeExtra             0.6-29     2019-12-19 [1] RSPM (R 4.1.0)                         
 ##  lazyeval                 0.2.2      2019-03-15 [1] RSPM (R 4.1.0)                         
 ##  lifecycle                1.0.0      2021-02-15 [2] RSPM (R 4.1.0)                         
-##  limma                  * 3.49.2     2021-08-03 [1] Bioconductor                           
+##  limma                  * 3.49.4     2021-08-08 [1] Bioconductor                           
 ##  locfit                 * 1.5-9.4    2020-03-25 [1] RSPM (R 4.1.0)                         
 ##  lubridate                1.7.10     2021-02-26 [1] RSPM (R 4.1.0)                         
 ##  magrittr                 2.0.1      2020-11-17 [2] RSPM (R 4.1.0)                         
 ##  markdown                 1.1        2019-08-07 [2] RSPM (R 4.1.0)                         
 ##  MASS                     7.3-54     2021-05-03 [3] CRAN (R 4.1.0)                         
 ##  Matrix                   1.3-4      2021-06-01 [2] RSPM (R 4.1.0)                         
-##  MatrixGenerics         * 1.5.2      2021-08-02 [1] Bioconductor                           
+##  MatrixGenerics         * 1.5.3      2021-08-05 [1] Bioconductor                           
 ##  matrixStats            * 0.60.0     2021-07-26 [1] RSPM (R 4.1.0)                         
 ##  memoise                  2.0.0      2021-01-26 [2] RSPM (R 4.1.0)                         
 ##  mime                     0.11       2021-06-23 [2] RSPM (R 4.1.0)                         
@@ -1552,14 +1552,14 @@ Base-pair resolution plot of differentially expressed region 2.
 ##  readr                    2.0.0      2021-07-20 [1] RSPM (R 4.1.0)                         
 ##  recount                * 1.19.0     2021-05-19 [1] Bioconductor                           
 ##  RefManageR               1.3.0      2020-11-13 [1] RSPM (R 4.1.0)                         
-##  regionReport           * 1.27.1     2021-08-05 [1] Github (leekgroup/regionReport@74530c8)
+##  regionReport           * 1.27.1     2021-08-10 [1] Github (leekgroup/regionReport@fbc4c4c)
 ##  rentrez                  1.2.3      2020-11-10 [1] RSPM (R 4.1.0)                         
 ##  reshape                  0.8.8      2018-10-23 [1] RSPM (R 4.1.0)                         
 ##  reshape2                 1.4.4      2020-04-09 [1] RSPM (R 4.1.0)                         
 ##  restfulr                 0.0.13     2017-08-06 [1] RSPM (R 4.1.0)                         
 ##  rjson                    0.2.20     2018-06-08 [1] RSPM (R 4.1.0)                         
 ##  rlang                    0.4.11     2021-04-30 [2] RSPM (R 4.1.0)                         
-##  rmarkdown              * 2.9        2021-06-15 [1] RSPM (R 4.1.0)                         
+##  rmarkdown              * 2.10       2021-08-06 [1] RSPM (R 4.1.0)                         
 ##  rngtools                 1.5        2020-01-23 [1] RSPM (R 4.1.0)                         
 ##  rpart                    4.1-15     2019-04-12 [3] CRAN (R 4.1.0)                         
 ##  rprojroot                2.0.2      2020-11-15 [2] RSPM (R 4.1.0)                         
@@ -1595,7 +1595,7 @@ Base-pair resolution plot of differentially expressed region 2.
 ##  viridis                  0.6.1      2021-05-11 [1] RSPM (R 4.1.0)                         
 ##  viridisLite              0.4.0      2021-04-13 [1] RSPM (R 4.1.0)                         
 ##  withr                    2.4.2      2021-04-18 [2] RSPM (R 4.1.0)                         
-##  xfun                     0.24       2021-06-15 [2] RSPM (R 4.1.0)                         
+##  xfun                     0.25       2021-08-06 [2] RSPM (R 4.1.0)                         
 ##  XML                      3.99-0.6   2021-03-16 [1] RSPM (R 4.1.0)                         
 ##  xml2                     1.3.2      2020-04-23 [2] RSPM (R 4.1.0)                         
 ##  xtable                   1.8-4      2019-04-21 [1] RSPM (R 4.1.0)                         
