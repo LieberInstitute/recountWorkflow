@@ -185,6 +185,7 @@ jobs:
           install.packages(c("rcmdcheck", "BiocCheck"), repos = gha_repos)
 
           ## Install all the regionReport dependencies
+          remotes::install_github("leekgroup/derfinderPlot", repos  = gha_repos) ## regionReport 1.29.1 needs derfinderPlot 1.29.1
           remotes::install_github("leekgroup/regionReport", repos  = gha_repos, dependencies = TRUE)
 
           ## Pass #1 at installing dependencies
