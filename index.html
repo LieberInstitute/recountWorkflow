@@ -12,7 +12,8 @@
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="recount workflow: accessing over 70,000 human RNA-seq samples with
+<script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
+<meta property="og:title" content="recount workflow: accessing over 70,000 human RNA-seq samples with
     Bioconductor">
 <meta property="og:description" content="The recount2 resource is composed of over 70,000 uniformly
     processed human RNA-seq samples spanning TCGA and SRA, including GTEx. The
@@ -33,6 +34,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -45,23 +48,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">recountWorkflow</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.19.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.25.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -78,7 +75,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/LieberInstitute/recountWorkflow/">
+  <a href="https://github.com/LieberInstitute/recountWorkflow/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -96,98 +93,101 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="recountworkflow" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#recountworkflow" class="anchor"></a>recountWorkflow</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="recountworkflow">recountWorkflow<a class="anchor" aria-label="anchor" href="#recountworkflow"></a>
+</h1></div>
 <!-- badges: start -->
 
 </div>
-<div id="recount-workflow-accessing-over-70000-human-rna-seq-samples-with-bioconductor" class="section level1">
-<h1 class="hasAnchor">
-<a href="#recount-workflow-accessing-over-70000-human-rna-seq-samples-with-bioconductor" class="anchor"></a>recount workflow: accessing over 70,000 human RNA-seq samples with Bioconductor</h1>
-<div id="abstract" class="section level2">
-<h2 class="hasAnchor">
-<a href="#abstract" class="anchor"></a>Abstract</h2>
+<div class="section level1">
+<h1 id="recount-workflow-accessing-over-70000-human-rna-seq-samples-with-bioconductor">recount workflow: accessing over 70,000 human RNA-seq samples with Bioconductor<a class="anchor" aria-label="anchor" href="#recount-workflow-accessing-over-70000-human-rna-seq-samples-with-bioconductor"></a>
+</h1>
+<div class="section level2">
+<h2 id="abstract">Abstract<a class="anchor" aria-label="anchor" href="#abstract"></a>
+</h2>
 <p>The recount2 resource is composed of over 70,000 uniformly processed human RNA-seq samples spanning TCGA and SRA, including GTEx. The processed data can be accessed via the recount2 website and the <code>recount</code> Bioconductor package. This workflow explains in detail how to use the <code>recount</code> package and how to integrate it with other Bioconductor packages for several analyses that can be carried out with the recount2 resource. In particular, we describe how the coverage count matrices were computed in recount2 as well as different ways of obtaining public metadata, which can facilitate downstream analyses. Step-by-step directions show how to do a gene level differential expression analysis, visualize base-level genome coverage data, and perform an analyses at multiple feature levels. This workflow thus provides further information to understand the data in recount2 and a compendium of R code to use the data.</p>
 </div>
-<div id="workflow-locations" class="section level2">
-<h2 class="hasAnchor">
-<a href="#workflow-locations" class="anchor"></a>Workflow locations</h2>
-<p>The workflow is available on Bioconductor at <a href="https://www.bioconductor.org/help/workflows/recountWorkflow/" class="uri">https://www.bioconductor.org/help/workflows/recountWorkflow/</a> and F1000Research at <a href="https://f1000research.com/articles/6-1558/v1" class="uri">https://f1000research.com/articles/6-1558/v1</a>.</p>
+<div class="section level2">
+<h2 id="workflow-locations">Workflow locations<a class="anchor" aria-label="anchor" href="#workflow-locations"></a>
+</h2>
+<p>The workflow is available on Bioconductor at <a href="https://www.bioconductor.org/help/workflows/recountWorkflow/" class="external-link uri">https://www.bioconductor.org/help/workflows/recountWorkflow/</a> and F1000Research at <a href="https://f1000research.com/articles/6-1558/v1" class="external-link uri">https://f1000research.com/articles/6-1558/v1</a>.</p>
 </div>
-<div id="documentation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#documentation" class="anchor"></a>Documentation</h2>
-<p>For more information about <code>recountWorkflow</code> check the vignettes <a href="http://bioconductor.org/packages/recountWorkflow">through Bioconductor</a> or at the <a href="http://LieberInstitute.github.io/recountWorkflow">documentation website</a>.</p>
+<div class="section level2">
+<h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
+</h2>
+<p>For more information about <code>recountWorkflow</code> check the vignettes <a href="http://bioconductor.org/packages/recountWorkflow" class="external-link">through Bioconductor</a> or at the <a href="http://LieberInstitute.github.io/recountWorkflow" class="external-link">documentation website</a>.</p>
 </div>
-<div id="installation-instructions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation-instructions" class="anchor"></a>Installation instructions</h2>
-<p>Get the latest stable <code>R</code> release from <a href="http://cran.r-project.org/">CRAN</a>. Then install <code>recountWorkflow</code> from <a href="http://bioconductor.org/">Bioconductor</a> using the following code:</p>
+<div class="section level2">
+<h2 id="installation-instructions">Installation instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
+</h2>
+<p>Get the latest stable <code>R</code> release from <a href="http://cran.r-project.org/" class="external-link">CRAN</a>. Then install <code>recountWorkflow</code> from <a href="http://bioconductor.org/" class="external-link">Bioconductor</a> using the following code:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
-
-<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"recountWorkflow"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"recountWorkflow"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="citation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#citation" class="anchor"></a>Citation</h2>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
 <p>Below is the citation output from using <code>citation('recountWorkflow')</code> in R. Please run this yourself to check for any updates on how to cite <strong>recountWorkflow</strong>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">'recountWorkflow'</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Collado-Torres L, Nellore A, Jaffe AE (2017). "recount workflow:</span>
-<span class="co">#&gt; Accessing over 70,000 human RNA-seq samples with Bioconductor [version</span>
-<span class="co">#&gt; 1; referees: 1 approved, 2 approved with reservations]."</span>
-<span class="co">#&gt; _F1000Research_. doi: 10.12688/f1000research.12223.1 (URL:</span>
-<span class="co">#&gt; https://doi.org/10.12688/f1000research.12223.1), &lt;URL:</span>
-<span class="co">#&gt; https://f1000research.com/articles/6-1558/v1&gt;.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   @Article{,</span>
-<span class="co">#&gt;     title = {recount workflow: Accessing over 70,000 human RNA-seq samples with Bioconductor [version 1; referees: 1 approved, 2 approved with reservations]},</span>
-<span class="co">#&gt;     author = {Leonardo Collado-Torres and Abhinav Nellore and Andrew E. Jaffe},</span>
-<span class="co">#&gt;     year = {2017},</span>
-<span class="co">#&gt;     journal = {F1000Research},</span>
-<span class="co">#&gt;     doi = {10.12688/f1000research.12223.1},</span>
-<span class="co">#&gt;     url = {https://f1000research.com/articles/6-1558/v1},</span>
-<span class="co">#&gt;   }</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Collado-Torres L, Nellore A, Jaffe AE (2020). _recount workflow:</span>
-<span class="co">#&gt; accessing over 70,000 human RNA-seq samples with Bioconductor_. doi:</span>
-<span class="co">#&gt; 10.18129/B9.bioc.recountWorkflow (URL:</span>
-<span class="co">#&gt; https://doi.org/10.18129/B9.bioc.recountWorkflow),</span>
-<span class="co">#&gt; https://github.com/LieberInstitute/recountWorkflow - R package version</span>
-<span class="co">#&gt; 1.13.1, &lt;URL: http://www.bioconductor.org/packages/recountWorkflow&gt;.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   @Manual{,</span>
-<span class="co">#&gt;     title = {recount workflow: accessing over 70,000 human RNA-seq samples with Bioconductor},</span>
-<span class="co">#&gt;     author = {Leonardo Collado-Torres and Abhinav Nellore and Andrew E. Jaffe},</span>
-<span class="co">#&gt;     year = {2020},</span>
-<span class="co">#&gt;     url = {http://www.bioconductor.org/packages/recountWorkflow},</span>
-<span class="co">#&gt;     note = {https://github.com/LieberInstitute/recountWorkflow - R package version 1.13.1},</span>
-<span class="co">#&gt;     doi = {10.18129/B9.bioc.recountWorkflow},</span>
-<span class="co">#&gt;   }</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"recountWorkflow"</span><span class="op">)</span>, bibtex <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; To cite package 'recountWorkflow' in publications use:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Collado-Torres L, Nellore A, Jaffe AE (2017). "recount workflow:</span></span>
+<span><span class="co">#&gt;   Accessing over 70,000 human RNA-seq samples with Bioconductor</span></span>
+<span><span class="co">#&gt;   [version 1; referees: 1 approved, 2 approved with reservations]."</span></span>
+<span><span class="co">#&gt;   _F1000Research_. doi:10.12688/f1000research.12223.1</span></span>
+<span><span class="co">#&gt;   &lt;https://doi.org/10.12688/f1000research.12223.1&gt;,</span></span>
+<span><span class="co">#&gt;   &lt;https://f1000research.com/articles/6-1558/v1&gt;.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   @Article{,</span></span>
+<span><span class="co">#&gt;     title = {recount workflow: Accessing over 70,000 human RNA-seq samples with Bioconductor [version 1; referees: 1 approved, 2 approved with reservations]},</span></span>
+<span><span class="co">#&gt;     author = {Leonardo Collado-Torres and Abhinav Nellore and Andrew E. Jaffe},</span></span>
+<span><span class="co">#&gt;     year = {2017},</span></span>
+<span><span class="co">#&gt;     journal = {F1000Research},</span></span>
+<span><span class="co">#&gt;     doi = {10.12688/f1000research.12223.1},</span></span>
+<span><span class="co">#&gt;     url = {https://f1000research.com/articles/6-1558/v1},</span></span>
+<span><span class="co">#&gt;   }</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Collado-Torres L, Nellore A, Jaffe AE (2023). _recount workflow:</span></span>
+<span><span class="co">#&gt;   accessing over 70,000 human RNA-seq samples with Bioconductor_.</span></span>
+<span><span class="co">#&gt;   doi:10.18129/B9.bioc.recountWorkflow</span></span>
+<span><span class="co">#&gt;   &lt;https://doi.org/10.18129/B9.bioc.recountWorkflow&gt;,</span></span>
+<span><span class="co">#&gt;   https://github.com/LieberInstitute/recountWorkflow - R package</span></span>
+<span><span class="co">#&gt;   version 1.25.0,</span></span>
+<span><span class="co">#&gt;   &lt;http://www.bioconductor.org/packages/recountWorkflow&gt;.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   @Manual{,</span></span>
+<span><span class="co">#&gt;     title = {recount workflow: accessing over 70,000 human RNA-seq samples with Bioconductor},</span></span>
+<span><span class="co">#&gt;     author = {Leonardo Collado-Torres and Abhinav Nellore and Andrew E. Jaffe},</span></span>
+<span><span class="co">#&gt;     year = {2023},</span></span>
+<span><span class="co">#&gt;     url = {http://www.bioconductor.org/packages/recountWorkflow},</span></span>
+<span><span class="co">#&gt;     note = {https://github.com/LieberInstitute/recountWorkflow - R package version 1.25.0},</span></span>
+<span><span class="co">#&gt;     doi = {10.18129/B9.bioc.recountWorkflow},</span></span>
+<span><span class="co">#&gt;   }</span></span></code></pre></div>
 <p>Please note that the <code>recountWorkflow</code> was only made possible thanks to many other R and bioinformatics software authors, which are cited either in the vignettes and/or the paper(s) describing this package.</p>
 </div>
-<div id="code-of-conduct" class="section level2">
-<h2 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
-<p>Please note that the recountWorkflow project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
+<p>Please note that the recountWorkflow project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
-<div id="development-tools" class="section level2">
-<h2 class="hasAnchor">
-<a href="#development-tools" class="anchor"></a>Development tools</h2>
+<div class="section level2">
+<h2 id="development-tools">Development tools<a class="anchor" aria-label="anchor" href="#development-tools"></a>
+</h2>
 <ul>
-<li>Continuous code testing is possible thanks to <a href="https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/">GitHub actions</a> through <em><a href="https://CRAN.R-project.org/package=usethis">usethis</a></em>, <em><a href="https://CRAN.R-project.org/package=remotes">remotes</a></em>, <em><a href="https://github.com/r-hub/sysreqs">sysreqs</a></em> and <em><a href="https://CRAN.R-project.org/package=rcmdcheck">rcmdcheck</a></em> customized to use <a href="https://www.bioconductor.org/help/docker/">Bioconductor’s docker containers</a> and <em><a href="https://bioconductor.org/packages/3.11/BiocCheck">BiocCheck</a></em>.</li>
-<li>Code coverage assessment is possible thanks to <a href="https://codecov.io/gh">codecov</a> and <em><a href="https://CRAN.R-project.org/package=covr">covr</a></em>.</li>
-<li>The <a href="http://LieberInstitute.github.io/recountWorkflow">documentation website</a> is automatically updated thanks to <em><a href="https://CRAN.R-project.org/package=pkgdown">pkgdown</a></em>.</li>
-<li>The code is styled automatically thanks to <em><a href="https://CRAN.R-project.org/package=styler">styler</a></em>.</li>
-<li>The documentation is formatted thanks to <em><a href="https://CRAN.R-project.org/package=devtools">devtools</a></em> and <em><a href="https://CRAN.R-project.org/package=roxygen2">roxygen2</a></em>.</li>
+<li>Continuous code testing is possible thanks to <a href="https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/" class="external-link">GitHub actions</a> through <em><a href="https://CRAN.R-project.org/package=usethis" class="external-link">usethis</a></em>, <em><a href="https://CRAN.R-project.org/package=remotes" class="external-link">remotes</a></em>, <em><a href="https://github.com/r-hub/sysreqs" class="external-link">sysreqs</a></em> and <em><a href="https://CRAN.R-project.org/package=rcmdcheck" class="external-link">rcmdcheck</a></em> customized to use <a href="https://www.bioconductor.org/help/docker/" class="external-link">Bioconductor’s docker containers</a> and <em><a href="https://bioconductor.org/packages/3.17/BiocCheck" class="external-link">BiocCheck</a></em>.</li>
+<li>Code coverage assessment is possible thanks to <a href="https://codecov.io/gh" class="external-link">codecov</a> and <em><a href="https://CRAN.R-project.org/package=covr" class="external-link">covr</a></em>.</li>
+<li>The <a href="http://LieberInstitute.github.io/recountWorkflow" class="external-link">documentation website</a> is automatically updated thanks to <em><a href="https://CRAN.R-project.org/package=pkgdown" class="external-link">pkgdown</a></em>.</li>
+<li>The code is styled automatically thanks to <em><a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a></em>.</li>
+<li>The documentation is formatted thanks to <em><a href="https://CRAN.R-project.org/package=devtools" class="external-link">devtools</a></em> and <em><a href="https://CRAN.R-project.org/package=roxygen2" class="external-link">roxygen2</a></em>.</li>
 </ul>
 <p>For more details, check the <code>dev</code> directory.</p>
 </div>
@@ -197,64 +197,74 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from BIOC at <br><a href="https://www.bioconductor.org/packages/recountWorkflow">https://​www.bioconductor.org/​packages/​recountWorkflow</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/LieberInstitute/recountWorkflow/">https://​github.com/​LieberInstitute/​recountWorkflow/​</a>
-</li>
-<li>Report a bug at <br><a href="https://support.bioconductor.org/t/recountWorkflow/">https://​support.bioconductor.org/​t/​recountWorkflow/​</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/Artistic-2.0">Artistic-2.0</a></li>
-</ul>
-</div>
-<div class="community">
-<h2>Community</h2>
-<ul class="list-unstyled">
-<li><a href="CONTRIBUTING.html">Contributing guide</a></li>
-<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
-</ul>
-</div>
-<div class="citation">
-<h2>Citation</h2>
-<ul class="list-unstyled">
-<li><a href="authors.html">Citing recountWorkflow</a></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Leonardo Collado-Torres <br><small class="roles"> Author, maintainer </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="https://www.bioconductor.org/packages/recountWorkflow" class="external-link">View on Bioconductor</a></li>
+<li><a href="https://github.com/LieberInstitute/recountWorkflow/" class="external-link">Browse source code</a></li>
+<li><a href="https://support.bioconductor.org/t/recountWorkflow/" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
-<li><a href="http://bioconductor.org/checkResults/release/workflows-LATEST/recountWorkflow/"><img src="https://master.bioconductor.org/shields/build/release/workflows/recountWorkflow.svg" alt="BioC status"></a></li>
-<li><a href="http://bioconductor.org/checkResults/devel/workflows-LATEST/recountWorkflow/"><img src="https://master.bioconductor.org/shields/build/devel/workflows/recountWorkflow.svg" alt="BioC dev status"></a></li>
-<li><a href="https://github.com/LieberInstitute/recountWorkflow/actions"><img src="https://github.com/LieberInstitute/recountWorkflow/workflows/R-CMD-check-bioc/badge.svg" alt="R build status"></a></li>
-<li><a href="https://support.bioconductor.org/t/recountWorkflow/"><img src="http://www.bioconductor.org/shields/posts/recountWorkflow.svg" alt="Support site activity, last 6 months: tagged questions/avg. answers per question/avg. comments per question/accepted answers, or 0 if no tagged posts."></a></li>
-<li><a href="https://github.com/LieberInstitute/recountWorkflow/issues"><img src="https://img.shields.io/github/issues/LieberInstitute/recountWorkflow" alt="GitHub issues"></a></li>
+<li><a href="https://www.r-project.org/Licenses/Artistic-2.0" class="external-link">Artistic-2.0</a></li>
 </ul>
 </div>
+
+<div class="community">
+<h2 data-toc-skip>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CONTRIBUTING.html">Contributing guide</a></li>
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+<li><a href="SUPPORT.html">Getting help</a></li>
+</ul>
 </div>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing recountWorkflow</a></li>
+</ul>
+</div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Leonardo Collado-Torres <br><small class="roles"> Author, maintainer </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
+<li><a href="https://bioconductor.org/checkResults/release/workflows-LATEST/recountWorkflow" class="external-link"><img src="http://www.bioconductor.org/shields/build/release/workflows/recountWorkflow.svg" alt="Bioc release status"></a></li>
+<li><a href="https://bioconductor.org/checkResults/devel/workflows-LATEST/recountWorkflow" class="external-link"><img src="http://www.bioconductor.org/shields/build/devel/workflows/recountWorkflow.svg" alt="Bioc devel status"></a></li>
+<li><a href="http://bioconductor.org/packages/stats/workflows/recountWorkflow/" class="external-link"><img src="https://bioconductor.org/shields/downloads/release/recountWorkflow.svg" alt="Bioc downloads rank"></a></li>
+<li><a href="https://support.bioconductor.org/tag/recountWorkflow" class="external-link"><img src="https://bioconductor.org/shields/posts/recountWorkflow.svg" alt="Bioc support"></a></li>
+<li><a href="http://bioconductor.org/checkResults/devel/workflows-LATEST/recountWorkflow/" class="external-link"><img src="https://bioconductor.org/shields/lastcommit/devel/workflows/recountWorkflow.svg" alt="Bioc last commit"></a></li>
+<li><a href="https://bioconductor.org/packages/release/workflows/html/recountWorkflow.html#since" class="external-link"><img src="https://bioconductor.org/shields/dependencies/release/recountWorkflow.svg" alt="Bioc dependencies"></a></li>
+<li><a href="https://codecov.io/gh/LieberInstitute/recountWorkflow?branch=devel" class="external-link"><img src="https://codecov.io/gh/LieberInstitute/recountWorkflow/branch/devel/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/LieberInstitute/recountWorkflow/actions" class="external-link"><img src="https://github.com/LieberInstitute/recountWorkflow/workflows/R-CMD-check-bioc/badge.svg" alt="R build status"></a></li>
+<li><a href="https://github.com/LieberInstitute/recountWorkflow/issues" class="external-link"><img src="https://img.shields.io/github/issues/LieberInstitute/recountWorkflow" alt="GitHub issues"></a></li>
+<li><a href="https://github.com/LieberInstitute/recountWorkflow/pulls" class="external-link"><img src="https://img.shields.io/github/issues-pr/LieberInstitute/recountWorkflow" alt="GitHub pulls"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Leonardo Collado-Torres.</p>
+  <p></p>
+<p>Developed by Leonardo Collado-Torres.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -262,6 +272,8 @@
 
   
 
+
+  
 
   </body>
 </html>
