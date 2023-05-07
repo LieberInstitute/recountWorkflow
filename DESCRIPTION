@@ -31,6 +31,7 @@ Imports:
     limma,
     edgeR,
     DESeq2,
+    pheatmap,
     regionReport,
     clusterProfiler,
     org.Hs.eg.db,
