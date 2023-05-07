@@ -51,4 +51,4 @@ NeedsCompilation: no
 Workflow: true
 URL: https://github.com/LieberInstitute/recountWorkflow
 BugReports: https://support.bioconductor.org/t/recountWorkflow/
-RoxygenNote: 7.1.0
+RoxygenNote: 7.2.3
