@@ -15,7 +15,7 @@ status](http://www.bioconductor.org/shields/build/devel/workflows/recountWorkflo
 rank](https://bioconductor.org/shields/downloads/release/recountWorkflow.svg)](http://bioconductor.org/packages/stats/workflows/recountWorkflow/)
 [![Bioc
 support](https://bioconductor.org/shields/posts/recountWorkflow.svg)](https://support.bioconductor.org/tag/recountWorkflow)
-![Bioc last
+[![Bioc last
 commit](https://bioconductor.org/shields/lastcommit/devel/workflows/recountWorkflow.svg)(http://bioconductor.org/checkResults/devel/bioc-LATEST/recountWorkflow/)
 [![Bioc
 dependencies](https://bioconductor.org/shields/dependencies/release/recountWorkflow.svg)](https://bioconductor.org/packages/release/workflows/html/recountWorkflow.html#since)
