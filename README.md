@@ -8,15 +8,15 @@
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Bioc release
-status](http://www.bioconductor.org/shields/build/release/workflows/recountWorkflow.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/recountWorkflow)
+status](http://www.bioconductor.org/shields/build/release/workflows/recountWorkflow.svg)](https://bioconductor.org/checkResults/release/workflows-LATEST/recountWorkflow)
 [![Bioc devel
-status](http://www.bioconductor.org/shields/build/devel/workflows/recountWorkflow.svg)](https://bioconductor.org/checkResults/devel/bioc-LATEST/recountWorkflow)
+status](http://www.bioconductor.org/shields/build/devel/workflows/recountWorkflow.svg)](https://bioconductor.org/checkResults/devel/workflows-LATEST/recountWorkflow)
 [![Bioc downloads
 rank](https://bioconductor.org/shields/downloads/release/recountWorkflow.svg)](http://bioconductor.org/packages/stats/workflows/recountWorkflow/)
 [![Bioc
 support](https://bioconductor.org/shields/posts/recountWorkflow.svg)](https://support.bioconductor.org/tag/recountWorkflow)
 [![Bioc last
-commit](https://bioconductor.org/shields/lastcommit/devel/workflows/recountWorkflow.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/recountWorkflow/)
+commit](https://bioconductor.org/shields/lastcommit/devel/workflows/recountWorkflow.svg)](http://bioconductor.org/checkResults/devel/workflows-LATEST/recountWorkflow/)
 [![Bioc
 dependencies](https://bioconductor.org/shields/dependencies/release/recountWorkflow.svg)](https://bioconductor.org/packages/release/workflows/html/recountWorkflow.html#since)
 [![Codecov test
